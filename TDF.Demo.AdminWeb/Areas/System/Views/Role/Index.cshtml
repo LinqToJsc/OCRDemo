@@ -1,0 +1,425 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<!-- Head Css Styles-->
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/Scripts/t2m_adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+    <style>
+        .example-modal .modal {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            right: auto;
+            left: auto;
+            display: block;
+            z-index: 1;
+        }
+
+        .example-modal .modal {
+            background: transparent !important;
+        }
+    </style>
+
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        权限管理
+        <small>系统角色</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 权限管理</a></li>
+        <li class="active">系统角色</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title"></h3>
+            <div class="box-tools pull-right">
+
+                <button class="btn btn-default btn-xs btn-box-tool" type="button" data-toggle="modal" data-target="#modal-default">
+                    <i class="fa fa-plus"></i> 新 增
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <form id="form_search" class="form-horizontal">
+
+                <div style="padding: 10px; margin-bottom: -10px;">
+                    <div class="pull-left" style="padding-bottom: 5px;">
+                        状态：<select class="form-control input-sm input-inline" name="Disabled" id="state">
+                            <option value="" selected="selected">全部</option>
+                            <option value="false">启用</option>
+                            <option value="true">禁用</option>
+                        </select>
+
+                    </div>
+                </div>
+
+            </form>
+            <table id="example1" class="table table-bordered table-striped table-hover"></table>
+        </div>
+
+    </div>
+    <!-- 弹出框模板 -->
+    <div class="modal fade" id="modal-default" data-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="form_edit" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">新增角色</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>角色名</label>
+                                    <input name="Id" type="hidden" class="form-control" value="">
+                                    <input name="Name" type="text" class="form-control" maxlength="10" hideerror="hideerror" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>备注</label>
+                                    <input name="Desc" type="text" class="form-control" maxlength="100" hideerror="hideerror">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="hide">重置</button>
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取 消</button>
+                        <button type="submit" class="btn btn-primary">保 存</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- End 弹出框模板 -->
+
+
+    <!-- 弹出框模板 -->
+    <div class="modal fade" id="modal-menu-source" data-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">角色:</h4>
+                    </div>
+                <div class="modal-body">
+                    
+                    <table id="defaultTable" class="table table-bordered table-hover" style="width: 100%;"></table>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取 消</button>
+                        <button id="btn-save-menu-source" type="button" class="btn btn-primary" data-roleId="">保 存</button>
+                    </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- End 弹出框模板 -->
+
+</section>
+ <!-- css 样式隐藏分页 #example1=tabeid-->
+<style>
+    #example1_paginate{
+        display:none
+    }
+</style>
+
+@section scripts{
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net/buttons/dataTables.buttons.js"></script>
+    <script src="~/Scripts/t2m_adminlte/js/datatables/dataTablesForTDF.js"></script>
+    <script>
+        var opSort = function(data, type, row, meta) { //data是当前的数据  //row是整个行的数据 //meta表示 行 列
+            return meta.row + 1;
+        };
+        var opColumns = function(data, type, row, meta) { //data是当前的数据  //row是整个行的数据 //meta表示 行 列
+            var modelData = escape(JSON.stringify(row));
+            if (!row.Disabled)
+                return "<a href=\"javascript:_edit(" + modelData + ");\">编辑</a> | <a href=\"javascript:_addMenuSource('_name_','_code_');\">资源</a> | <a href=\"javascript:_state('_code_',false);\">禁用</a>".replace(/_code_/ig, row.Id).replace(/_id_/ig, row.Id).replace(/_name_/ig, row.Name);
+            else
+                return "<a href=\"javascript:_edit(" + modelData + ");\">编辑</a> | <a href=\"javascript:_addMenuSource('_name_','_code_');\">资源</a> | <a href=\"javascript:_state('_code_',true);\">启用</a> | <a href=\"javascript:_delete('_code_');\">删除</a>".replace(/_code_/ig, row.Id).replace(/_id_/ig, row.Id).replace(/_name_/ig, row.Name);
+        };
+        var opIconColumns = function(data, type, row, meta) {
+            if (data)
+                data = '<i class="' + data + '"> ' + data;
+            return data;
+        }
+        var FalseOrTrue = function(data, type, row, meta) {
+
+            if (data)
+                return "是";
+            return "否";
+        }
+        var Disabled = function(data, type, row, meta) {
+            if (data)
+                return "禁用";
+            return "启用";
+        }
+
+        var bindEditData = function(data) {
+                var form = $('#form_edit');
+                $('input[name="Id"]', form).val(data.Id);
+                $('input[name="Name"]', form).val(data.Name);
+                $('input[name="Desc"]', form).val(data.Desc);
+            },
+            _addMenuSource = function (name, id) {               
+                $('#modal-menu-source').find('.modal-title').html('角色：' + name);
+                $("#defaultTable").find("input[type='checkbox']").prop("checked", false);
+                $('#btn-save-menu-source').attr("data-roleId", id);
+                //Ajax加载初始资源
+                $("#defaultTable").find("input[type='checkbox']").prop("checked", false);
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("GetMenuIds")",
+                    data: { RoleId: id },
+                    success: function(result) {
+                        if (result.Success) {
+                            for (var i = 0; i < result.Value.length; i++) {
+                                $("#defaultTable").find("input[type='checkbox'][value='" + result.Value[i] + "']").prop("checked", true);
+                            }
+                        } else {
+                            showToast(3, '系统消息', result.Message);
+                        }
+                        //打开 弹出窗
+                        $('#modal-menu-source').modal('show');
+                    }
+                });
+
+            },
+            _delete = function(code) {
+                bootbox.confirm("该操作会同时删除所有用户与该角色的关联，请谨慎操作。确认删除？", function(result) {
+                    if (result) {
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("Delete")",
+                            data: { RoleId: code },
+                            async: false,
+                            success: function(result) {
+                                if (result.Success) {
+                                    //刷新当前列表
+                                    showToast(0, '系统提示', "状态已修改");
+                                    reload();
+                                } else {
+                                    showToast(3, '系统提示', result.Message);
+                                }
+                            }
+                        });
+                    }
+                });
+            },
+            _state = function(id, state) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Enable")",
+                    data: { RoleId: id, Enabled: state },
+                    success: function(result) {
+                        if (result.Success) {
+                            //刷新当前列表
+                            showToast(0, '系统提示', "状态已修改");
+                            reload();
+                        } else {
+                            showToast(3, '系统提示', result.Message);
+                        }
+
+                    }
+                });
+            },
+            _edit = function(data) {
+                data = JSON.parse(unescape(JSON.stringify(data)));
+                bindEditData(data);
+                $('#modal-default').find('.modal-title').html('编辑');
+                // 需要 赋予初始值
+                bindEditData(data);
+                //打开 弹出窗
+                $('#modal-default').modal('show');
+            };
+
+
+        $(function() {
+
+            // 弹出框 菜单 新增/编辑操作
+            $('#modal-default').on('hidden.bs.modal', function() {
+                $('#modal-default').find("input[type='hidden']").val('');
+                $('#modal-default').find('button[type="reset"]').click();
+            });
+
+
+            customFormValidate($('#form_edit'), {}, function(form) {
+                var data = $(form).serializeObject();
+                $.ajax({
+                    url: '@Url.Action("SaveRole")',
+                    type: 'post',
+                    data: data,
+                    success: function(result) {
+                        if (result.Success) {
+                            showToast(0, '系统消息', '保存成功');
+                            //关闭弹出框
+                            $('#modal-default').modal('hide');
+
+                            //刷新列表
+                            reload();
+                            //.....
+                        } else {
+                            showToast(3, '系统消息', result.Message);
+                        }
+                    }
+                });
+            }, {});
+            // End 弹出框 菜单 新增/编辑操作
+            var dataTables = {};
+            dataTables.tableId = "example1"; //设定id
+       
+            //dataTables.paging = false; //关闭分页
+            //修改列表
+            dataTables.columns = [
+                { "title": "序号", sortable: true, render: opSort }, //{}
+                { "data": "Name", "title": "角色名称", sortable: false },
+                { "data": "CreatorName", "title": "创建人" },
+                { "data": "ModifiedTime", "title": "修改时间" },
+                { "data": "ModifierName", "title": "修改人" },
+                { "data": "Disabled", "title": "状态", render: Disabled },
+                { "data": "Id", "title": "操作", render: opColumns }
+            ];
+     
+
+            //修改列表
+            tabColumns = [
+                { "title": "序号", sortable: true, render: opSort }, //{}
+                { "data": "Name", "title": "角色名称", sortable: false },
+                { "data": "CreatorName", "title": "创建人" },
+                { "data": "ModifiedTime", "title": "修改时间" },
+                { "data": "ModifierName", "title": "修改人" },
+                { "data": "Disabled", "title": "状态", render: Disabled },
+                { "data": "Id", "title": "操作", render: opColumns }
+            ];
+            //通常用于对参数的额外加工 回调函数
+            var serverParam = function (dataParams) {
+                return dataParams;
+            }
+ 
+            var opts = {
+                showButtons: true, // 是否显示操作按钮组
+                buttons: [], //操作按钮组 在showButtons==true时 默认会有一个 刷新按钮
+                ordering: false,
+                lengthChange: false, //是否允许用户改变 PageSize
+                pageSize: 20, //PageSize 设置 默认为 10
+                searching: false, //是否开启 默认关键词搜索
+                searchPlaceholder: "角色名称", //默认搜索框提示文字
+                searchTextWidth: "200px",//默认搜索框的宽度 默认值：标准宽度
+                paging: false
+            };
+            var dataTablesModel = TdfDataTableParams.CreateDataTable('example1', 'form_search', '@Url.Action("GetRolePagedList")', tabColumns, opts, serverParam);
+            //筛选启用/禁用
+            $("#form_search [name='Disabled']").on("change", function() {
+                dataTablesModel.draw();
+            });
+
+            var tableList = $('#defaultTable').DataTable({
+                language: {
+                    url: '/Scripts/t2m_adminlte/bower_components/datatables.net/localisation/Chinese_zh.json'
+                },
+                ordering: false,
+                searching:false,
+                paging: false,
+                info: false,
+                autoWidth:true,
+                ajax: { url: '@Url.Action("GetResourcesPagedList", "Menu")', dataSrc: 'data' },
+                columns: [
+                    { "data": "Sort", "title": "" },
+                    { "data": "DisplayName", "title": "资源名称" },
+                    { "data": "ModuleName", "title": "所属菜单" },
+                    { "data": "ActionTypeStr", "title": "资源类型" }
+                ],
+                rowCallback: function(row, data, index) {
+
+                    if (data.ActionParentId !== "00000000-0000-0000-0000-000000000000") {
+                        $(row).addClass("fun_" + data.ActionParentId);
+                        $('td:eq(0)', row).html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┡--- <input type=\"checkbox\" tdf-page-id=\"fun_" + data.ActionParentId + "\" value=\"" + data.Id + "\" />");
+                    } else {
+                        $(row).css('background-color', '#f9f9f9');
+                        var btn = $('<i class="fa fa-list-ul active" style="cursor:pointer"></i>');
+                        btn.attr('tdf-page-id', 'fun_' + data.Id);
+                        btn.click(function() {
+                            var pageFuncClass = $(this).attr('tdf-page-id');
+                            if ($(this).hasClass('active')) {
+                                $('.' + pageFuncClass, $('#defaultTable')).hide();
+                                $(this).removeClass('active');
+                            } else {
+                                $('.' + pageFuncClass, $('#defaultTable')).show();
+                                $(this).addClass('active');
+                            }
+                        });
+                        var checkbox = $('<input type="checkbox" class="tdf-page" value="' + data.Id + '" data-dtf-moduleId="' + data.ModuleId + '" />');
+                        checkbox.click(function() {
+                            var tdfPageId = "fun_" + $(this).val();
+                            if ($(this).prop("checked")) {
+                                $("input[type='checkbox'][tdf-page-id='" + tdfPageId + "']", $("#defaultTable")).prop("checked", true);
+                            } else {
+                                $("input[type='checkbox'][tdf-page-id='" + tdfPageId + "']", $("#defaultTable")).prop("checked", false);
+                            }
+                        });
+
+                        $('td:eq(0)', row).html(btn);
+                        $('td:eq(0)', row).append("&nbsp;&nbsp;&nbsp;");
+                        $('td:eq(0)', row).append(checkbox);
+                    }
+                }
+            });
+
+            $('#btn-save-menu-source').click(function() {
+                var moduleIds = [], actionIds = [];
+                var roleCode = $(this).attr('data-roleId');
+                $("#defaultTable input[type='checkbox']").each(function() {
+                    if ($(this).prop("checked")) {
+                        actionIds.push($(this).val());
+                        if ($(this).attr('data-dtf-moduleId'))
+                            moduleIds.push($(this).attr('data-dtf-moduleId'));
+                    }
+                });
+                moduleIds = moduleIds.unique3();
+                var ajaxData = { moduleIds: moduleIds, actionIds: actionIds, roleId: roleCode };
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Empowerment")",
+                    data: ajaxData,
+                async: false,
+                success: function(result) {
+                    if (result.Success) {
+                        showToast(0, '系统消息', '操作成功');
+                        //打开 弹出窗
+                        $('#modal-menu-source').modal('hide');
+                    } else {
+                        showToast(3, '系统消息', result.Message);
+                    }
+                }
+            });
+
+        });
+
+            //重载当前页面
+            reload =  function () {
+                dataTablesModel.ajax.reload();
+            }
+        });
+
+    </script>
+}

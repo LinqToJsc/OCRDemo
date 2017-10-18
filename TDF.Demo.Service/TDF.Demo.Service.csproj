@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B04FF652-9F25-4A57-BEF4-5A68476D98EF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TDF.Demo.Service</RootNamespace>
+    <AssemblyName>TDF.Demo.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.1\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.9.9\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Consumer\AuthorizeCacheEventConsumer.cs" />
+    <Compile Include="DataDictionary\IDataDictionaryService.cs" />
+    <Compile Include="DataDictionary\Implemented\DataDictionaryService.cs" />
+    <Compile Include="Dtos\DataDictionary\DataDictionaryBasicDto.cs" />
+    <Compile Include="Dtos\DataDictionary\DataDictionaryCriteria.cs" />
+    <Compile Include="Dtos\DataDictionary\DataDictionaryDto.cs" />
+    <Compile Include="Dtos\DataDictionary\DataDictionaryDtoExtensions.cs" />
+    <Compile Include="Dtos\DataDictionary\DataDictionaryTypeBasicDto.cs" />
+    <Compile Include="Dtos\DataDictionary\DataDictionaryTypeDto.cs" />
+    <Compile Include="Dtos\SystemManage\Action\ActionDtoExtensions.cs" />
+    <Compile Include="Dtos\SystemManage\Action\SystemActionDto.cs" />
+    <Compile Include="Dtos\SystemManage\Member\MemberCriteria.cs" />
+    <Compile Include="Dtos\SystemManage\Member\MemberDtoExtensions.cs" />
+    <Compile Include="Dtos\SystemManage\Member\PassWordDto.cs" />
+    <Compile Include="Dtos\SystemManage\Member\SystemMemberDto.cs" />
+    <Compile Include="Dtos\SystemManage\Module\ModuleCriteria.cs" />
+    <Compile Include="Dtos\SystemManage\Module\ModuleDtoExtensions.cs" />
+    <Compile Include="Dtos\SystemManage\Module\SystemModuleDto.cs" />
+    <Compile Include="Dtos\SystemManage\Role\AuthorizeActionModel.cs" />
+    <Compile Include="Dtos\SystemManage\Role\RoleCriteria.cs" />
+    <Compile Include="Dtos\SystemManage\Role\RoleDtoExtensions.cs" />
+    <Compile Include="Dtos\SystemManage\Role\SystemRoleDto.cs" />
+    <Compile Include="Mapper\AutoMapperInitializer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemManage\Implemented\RoleAuthorizeService.cs" />
+    <Compile Include="SystemManage\Implemented\SystemMemberService.cs" />
+    <Compile Include="SystemManage\Implemented\SystemModuleService.cs" />
+    <Compile Include="SystemManage\ISystemMemberService.cs" />
+    <Compile Include="SystemManage\ISystemModuleService.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TDF.Core\TDF.Core.csproj">
+      <Project>{3d097079-8875-4ef6-9d4a-f6235d47fabd}</Project>
+      <Name>TDF.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TDF.Data.EntityFramework\TDF.Data.EntityFramework.csproj">
+      <Project>{73052bac-0598-44af-a466-bb3c318c4d0d}</Project>
+      <Name>TDF.Data.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TDF.Data\TDF.Data.csproj">
+      <Project>{6b4bbbc9-934d-4e1b-a5fb-ec4243f9470b}</Project>
+      <Name>TDF.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TDF.Demo.Domain\TDF.Demo.Domain.csproj">
+      <Project>{0951f479-db89-40f1-b341-9617965694d7}</Project>
+      <Name>TDF.Demo.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TDF.Demo.Infrastructure\TDF.Demo.Infrastructure.csproj">
+      <Project>{e5427dd4-94ce-4e9f-b9c1-99f419a9a2f8}</Project>
+      <Name>TDF.Demo.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TDF.Demo.Repository\TDF.Demo.Repository.csproj">
+      <Project>{8ce34196-8959-4e65-a825-51daffeafcad}</Project>
+      <Name>TDF.Demo.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TDF.Web.Authentication\TDF.Web.Authentication.csproj">
+      <Project>{8a59a82c-db1d-44f6-aa39-dce7046b6401}</Project>
+      <Name>TDF.Web.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TDF.Web\TDF.Web.csproj">
+      <Project>{6f83ca84-ffb6-462d-bffd-8b61eba5f34a}</Project>
+      <Name>TDF.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

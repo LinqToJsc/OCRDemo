@@ -1,0 +1,301 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+}
+<!-- Head Css Styles-->
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/Scripts/t2m_adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+    <style>
+        .example-modal .modal {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            right: auto;
+            left: auto;
+            display: block;
+            z-index: 1;
+        }
+
+        .example-modal .modal {
+            background: transparent !important;
+        }
+    </style>
+
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        权限管理
+        <small>系统角色</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 权限管理</a></li>
+        <li class="active">系统角色</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title"></h3>
+            <div class="box-tools pull-right">
+
+                <button class="btn btn-default btn-xs btn-box-tool" type="button" data-toggle="modal" data-target="#modal-default">
+                    <i class="fa fa-plus"></i> 新 增
+                </button>
+
+                <button id="HG" class="btn btn-default btn-xs btn-box-tool" type="button" >
+                    <i class="fa fa-plus"></i> Test
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <form id="form_search" class="form-horizontal">
+                <h3>高级筛选</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">条件1</label>
+                            <div class="col-sm-10">
+                                <input name="ff1" type="text" class="form-control input-sm" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">条件2</label>
+                            <div class="col-sm-10">
+                                <input name="ff2" type="text" class="form-control input-sm" placeholder="Password">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">条件3</label>
+                            <div class="col-sm-10">
+                                <input name="ff3" type="text" class="form-control input-sm" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">条件4</label>
+                            <div class="col-sm-10">
+                                <input name="ff4" type="text" class="form-control input-sm" placeholder="Password">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">条件5</label>
+                            <div class="col-sm-10">
+                                <input name="ff5" type="text" class="form-control input-sm" placeholder="Email">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div style="float: right; padding-right: 20px;">
+                        <button type="button" class="btn btn-default btn-sm">搜 索</button>
+                        <button type="button" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh icon-refresh"></i></button>
+                    </div>
+                </div>
+
+
+                <h3>普通筛选</h3>
+                <div style="padding: 10px; margin-bottom: -10px;">
+                    <div class="pull-left">
+                        状态：<select class="form-control input-sm input-inline" >
+                            <option value="10">10</option>
+                        </select>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        状态：<select class="form-control input-sm input-inline">
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+
+            </form>
+            
+
+            
+
+            <table id="example1" class="table table-bordered table-striped table-hover"></table>
+        </div>
+
+    </div>
+
+</section>
+
+@section scripts{
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net/buttons/dataTables.buttons.js"></script>
+    <script>
+
+        $('#HG').click(function() {
+            //callback [function(json)] 默认值:null 当服务器返回数据并重绘完毕时执行此回调方法，回调方法返回的是服务器返回的数据
+            //resetPaging [boolean] 默认:true 重置（默认或者设置为true）或者保持分页信息（设置为false）
+            //dataTables.ajax.reload(callback,resetPaging)
+
+            //jscTable.ajax.reload();
+        });
+
+        // 已封装到dataTablesForTDF.js
+        var TdfDataTableParams = function() {
+            var _getTabOpts = function(serverUrl, searchFormId, columns, opts, serverParamsFunction, rowCallbackFunction) {
+                opts = opts || {};
+                opts.searchPlaceholder = opts.searchPlaceholder || "关键词";
+                opts.dom = opts.dom || "frt<'row'<'col-sm-6'il><'col-sm-6'p>>";
+                //是否显示操作按钮 默认true
+                opts.showButtons = (opts.showButtons == null || opts.showButtons == undefined) ? true : opts.showButtons,
+                    //默认有一个刷新按钮
+                    opts.buttons = opts.buttons || [];
+                if (opts.showButtons === true) {
+                    opts.dom = "<'pull-right'Bf>rt<'row'<'col-sm-6'il><'col-sm-6'p>>";
+                    if (opts.buttons.length === 0)
+                        opts.buttons.push({
+                            className: "btn btn-default btn-sm",
+                            text: '<i class="glyphicon glyphicon-refresh icon-refresh">',
+                            action: function(e, dt, node, config) {
+                                dt.ajax.reload();
+                            }
+                        });
+                }
+
+                return {
+                    language: {
+                        url: '/Scripts/t2m_adminlte/bower_components/datatables.net/localisation/Chinese_zh.json'
+                    },
+                    columnDefs: [
+                        { "orderable": false, "targets": ['_all'] } // 在开启排序功能的情况下 对所有列禁用排序；如需对单独某个列设置排序，请在 columns 中对列设置 orderable [bool]属性
+                    ],
+                    order: [],
+                    lengthMenu: opts.lengthMenu || [[10, 25, 50], [10, 25, 50]],
+                    lengthChange: (opts.lengthChange == null || opts.lengthChange == undefined) ? true : opts.lengthChange,
+                    iDisplayLength: opts.pageSize || 10,
+                    processing:
+                        true, //是否显示数据加载等待状态的弹出窗
+                    serverSide:
+                        true, // 是否开启服务器模式
+                    ordering: (opts.ordering == null || opts.ordering == undefined) ? true : opts.ordering, //是否开启所有列排序功能
+                    deferRender:
+                        true,
+                    searching: (opts.searching == null || opts.searching == undefined) ? true : opts.searching,
+                    info: (opts.info == null || opts.info == undefined) ? true : opts.info,
+                    columns: columns,
+                    dom: opts.dom,
+                    initComplete: function(settings, json) {
+                        var wrapper = $("#" + settings.sTableId + "_wrapper");
+                        //修过样式
+                        $("#" + settings.sTableId + "_info").css({ "float": "left", "padding-right": "10px" });
+                        $("#" + settings.sTableId + "_length").css({ "float": "left", "margin-top": "5px" });
+
+                        $("#" + settings.sTableId + "_filter").css({ "float": "right" });
+                        $(".dt-buttons", wrapper).css({ "float": "right" });
+                        $(".dt-button", wrapper).css({ "border-radius": "0" });
+                        if (opts.searchTextWidth)
+                            $("[type='search']", wrapper).css({ "width": opts.searchTextWidth });
+                        $("[type='search']", wrapper).attr("placeholder", opts.searchPlaceholder);
+                    },
+                    buttons: opts.buttons,
+                    ajax:
+                    {
+                        url: serverUrl,
+                        type:
+                            "post",
+                        data:
+                            function(prams) {
+                                var dataParams = {};
+                                dataParams.PageIndex = (prams.start / prams.length);
+                                dataParams.PageSize = prams.length;
+                                dataParams.Keyword = prams.search.value;
+                                dataParams.OrderSorts = [];
+                                dataParams.draw = prams.draw;
+                                // 这里只处理对单个列的排序功能，如需支持对多个列同时排序 则需遍历order数组 并重新构造服务器参数接收对象
+                                if (prams.order.length > 0) {
+                                    $.each(prams.order, function(i, item) {
+                                        dataParams.OrderSorts.push({ OrderName: prams.columns[item.column].data, OrderType: item.dir });
+                                    });
+                                }
+
+                                // 注入更多自定义 查询条件 参数 从搜索条件From表单中读取
+                                //var o1 = { a: 'a',c:"ad" }, o2 = { a:'hg', b: 'b' };
+                                //var o3 = $.extend(o1, o2);  //合并两个对象 合并之后 o1==o3 且如果 合并的两个对象具有相同的属性 其合并结果为 后面的属性值覆盖前面的属性值
+                                var formData = $('#' + searchFormId).serializeObject();
+                                $.extend(dataParams, formData);
+
+                                //通常用于对参数的额外加工 回调函数
+                                if ((typeof serverParamsFunction == 'function')) {
+                                    // 通过回调函数 注入更多 ajax查询参数
+                                    var ps = serverParamsFunction(dataParams);
+                                    if (ps) {
+                                        return ps;
+                                    }
+                                }
+
+                                return dataParams;
+                            },
+                        dataSrc: "data"
+                    },
+                    rowCallback: function(row, data, index) {
+                        if ((typeof rowCallbackFunction == 'function'))
+                            rowCallbackFunction(row, data, index);
+                    }
+                }
+            }
+
+
+            return {
+                /**
+                 * domTabId [string 必须] 表格Table的 Dom ID
+                 * searchFormId [string 必须,但值可以为空] 筛选条件Dom容器 From表单ID
+                 * serverUrl [string 必须] ajax数据请求服务端URL
+                 * columns [ObjectArray 必须] 定义表格列
+                 * opts [Object 可选] 列表Table 初始化配置参数
+                 * serverParamsCallBack [function 可选] 通常用于对筛选参数的额外加工 回调函数
+                 * rowCallBack [function 可选] 表格行绘制 回调函数
+                 */
+                CreateDataTable: function(domTabId, searchFormId, serverUrl, columns, opts, serverParamsCallBack, rowCallBack) {
+                    return $('#' + domTabId).DataTable(_getTabOpts(serverUrl, searchFormId, columns, opts, serverParamsCallBack, rowCallBack));
+                }
+            };
+        }();
+
+        var tabColumns = [
+            { "data": "Id", "title": "序号" }, //{}
+            { "data": "Name", "title": "角色名称", orderable: true },
+            { "data": "CreatorName", "title": "创建人" },
+            { "data": "ModifiedTime", "title": "修改时间" },
+            { "data": "ModifierName", "title": "修改人" },
+            { "data": "Disabled", "title": "状态" },
+            { "data": "Id", "title": "操作" }
+        ];
+
+
+        //通常用于对参数的额外加工 回调函数
+        var serverParam = function(dataParams) {
+            return dataParams;
+        }
+
+        var opts = {
+            showButtons: true, // 是否显示操作按钮组
+            buttons: [], //操作按钮组 在showButtons==true时 默认会有一个 刷新按钮
+            lengthChange: true, //是否允许用户改变 PageSize
+            pageSize: 20, //PageSize 设置 默认为 10
+            searching: true, //是否开启 默认关键词搜索
+            searchPlaceholder: "角色名称", //默认搜索框提示文字
+            searchTextWidth: "200px" //默认搜索框的宽度 默认值：标准宽度
+        };
+
+        var jscTable = TdfDataTableParams.CreateDataTable('example1', 'form_search', '@Url.Action("GetRolePagedList")', tabColumns, opts, serverParam);
+
+    </script>
+
+}

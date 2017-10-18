@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="TDFModels.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="TDFModelsTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="TDFModels" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="TDFModelsContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EntityBase" EntityType="TDFModels.EntityBase" />
+          <AssociationSet Name="SystemMemberLogonSystemMember" Association="TDFModels.SystemMemberLogonSystemMember">
+            <End Role="SystemMemberLogon" EntitySet="EntityBase" />
+            <End Role="SystemMember" EntitySet="EntityBase" />
+          </AssociationSet>
+          <AssociationSet Name="SystemRoleSystemMemberRole" Association="TDFModels.SystemRoleSystemMemberRole">
+            <End Role="SystemRole" EntitySet="EntityBase" />
+            <End Role="SystemMemberRole" EntitySet="EntityBase" />
+          </AssociationSet>
+          <AssociationSet Name="SystemMemberRoleSystemMember" Association="TDFModels.SystemMemberRoleSystemMember">
+            <End Role="SystemMemberRole" EntitySet="EntityBase" />
+            <End Role="SystemMember" EntitySet="EntityBase" />
+          </AssociationSet>
+          <AssociationSet Name="SystemRoleSystemModuleRole" Association="TDFModels.SystemRoleSystemModuleRole">
+            <End Role="SystemRole" EntitySet="EntityBase" />
+            <End Role="SystemModuleRole" EntitySet="EntityBase" />
+          </AssociationSet>
+          <AssociationSet Name="SystemModuleSystemModuleRole" Association="TDFModels.SystemModuleSystemModuleRole">
+            <End Role="SystemModule" EntitySet="EntityBase" />
+            <End Role="SystemModuleRole" EntitySet="EntityBase" />
+          </AssociationSet>
+          <AssociationSet Name="SystemRoleSystemActionRole" Association="TDFModels.SystemRoleSystemActionRole">
+            <End Role="SystemRole" EntitySet="EntityBase" />
+            <End Role="SystemActionRole" EntitySet="EntityBase" />
+          </AssociationSet>
+          <AssociationSet Name="SystemActionSystemActionRole" Association="TDFModels.SystemActionSystemActionRole">
+            <End Role="SystemAction" EntitySet="EntityBase" />
+            <End Role="SystemActionRole" EntitySet="EntityBase" />
+          </AssociationSet>
+          <AssociationSet Name="SystemModuleSystemAction" Association="TDFModels.SystemModuleSystemAction">
+            <End Role="SystemModule" EntitySet="EntityBase" />
+            <End Role="SystemAction" EntitySet="EntityBase" />
+          </AssociationSet>
+          <AssociationSet Name="DataDictionaryTypeDataDictionary" Association="TDFModels.DataDictionaryTypeDataDictionary">
+            <End Role="DataDictionaryType" EntitySet="EntityBase" />
+            <End Role="DataDictionary" EntitySet="EntityBase" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="EntityBase" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SystemEntity" BaseType="TDFModels.EntityBase" Abstract="true">
+          <Property Name="CreatorId" Type="Guid" Nullable="true" />
+          <Property Name="CreatorName" Type="String" Nullable="true" />
+          <Property Name="ModifierId" Type="Guid" Nullable="true" />
+          <Property Name="ModifierName" Type="String" Nullable="true" />
+          <Property Name="ModifiedTime" Type="DateTime" Nullable="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedTime" Type="DateTime" Nullable="true" />
+        </EntityType>
+        <EntityType Name="SystemMemberLogon" BaseType="TDFModels.SystemEntity">
+          <Property Name="Password" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Secretkey" Type="String" Nullable="true" />
+          <Property Name="LogOnCount" Type="Int32" Nullable="true" />
+          <Property Name="UserOnLine" Type="Boolean" Nullable="true" />
+          <Property Name="SessionKey" Type="String" Nullable="false" />
+          <Property Name="PreviousVisitTime" Type="DateTime" Nullable="true" />
+          <Property Name="LastVisitTime" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="SystemMember" Relationship="TDFModels.SystemMemberLogonSystemMember" FromRole="SystemMemberLogon" ToRole="SystemMember" />
+        </EntityType>
+        <EntityType Name="SystemMember" BaseType="TDFModels.SystemEntity">
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="50" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Gender" Type="Boolean" Nullable="true" />
+          <Property Name="MobilePhone" Type="String" Nullable="true" MaxLength="100" />
+          <Property Name="Email" Type="String" Nullable="true" MaxLength="150" />
+          <Property Name="EnabledMark" Type="Boolean" Nullable="true" />
+          <Property Name="IsSuperAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="RealName" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="QQ" Type="String" Nullable="true" />
+          <NavigationProperty Name="SystemMemberLogon" Relationship="TDFModels.SystemMemberLogonSystemMember" FromRole="SystemMember" ToRole="SystemMemberLogon" />
+          <NavigationProperty Name="SystemMemberRoles" Relationship="TDFModels.SystemMemberRoleSystemMember" FromRole="SystemMember" ToRole="SystemMemberRole" />
+        </EntityType>
+        <Association Name="SystemMemberLogonSystemMember">
+          <End Type="TDFModels.SystemMemberLogon" Role="SystemMemberLogon" Multiplicity="1" />
+          <End Type="TDFModels.SystemMember" Role="SystemMember" Multiplicity="1" />
+        </Association>
+        <EntityType Name="SystemRole" BaseType="TDFModels.SystemEntity">
+          <Property Name="Desc" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Disabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SystemMemberRoles" Relationship="TDFModels.SystemRoleSystemMemberRole" FromRole="SystemRole" ToRole="SystemMemberRole" />
+          <NavigationProperty Name="SystemModuleRoles" Relationship="TDFModels.SystemRoleSystemModuleRole" FromRole="SystemRole" ToRole="SystemModuleRole" />
+          <NavigationProperty Name="SystemActionRoles" Relationship="TDFModels.SystemRoleSystemActionRole" FromRole="SystemRole" ToRole="SystemActionRole" />
+        </EntityType>
+        <EntityType Name="SystemMemberRole" BaseType="TDFModels.SystemEntity">
+          <Property Name="SystemMemberId" Type="Guid" Nullable="false" />
+          <Property Name="SystemRoleId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="SystemRole" Relationship="TDFModels.SystemRoleSystemMemberRole" FromRole="SystemMemberRole" ToRole="SystemRole" />
+          <NavigationProperty Name="SystemMember" Relationship="TDFModels.SystemMemberRoleSystemMember" FromRole="SystemMemberRole" ToRole="SystemMember" />
+        </EntityType>
+        <Association Name="SystemRoleSystemMemberRole">
+          <End Type="TDFModels.SystemRole" Role="SystemRole" Multiplicity="1" />
+          <End Type="TDFModels.SystemMemberRole" Role="SystemMemberRole" Multiplicity="*" />
+        </Association>
+        <Association Name="SystemMemberRoleSystemMember">
+          <End Type="TDFModels.SystemMemberRole" Role="SystemMemberRole" Multiplicity="*" />
+          <End Type="TDFModels.SystemMember" Role="SystemMember" Multiplicity="1" />
+        </Association>
+        <EntityType Name="SystemModule" BaseType="TDFModels.SystemEntity">
+          <Property Name="Code" Type="String" Nullable="false" Unicode="true" />
+          <Property Name="Desc" Type="String" Nullable="false" />
+          <Property Name="IconClass" Type="String" Nullable="false" />
+          <Property Name="Displayed" Type="Boolean" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="ParentId" Type="Guid" Nullable="false" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="Disabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SystemModuleRoles" Relationship="TDFModels.SystemModuleSystemModuleRole" FromRole="SystemModule" ToRole="SystemModuleRole" />
+          <NavigationProperty Name="SystemActions" Relationship="TDFModels.SystemModuleSystemAction" FromRole="SystemModule" ToRole="SystemAction" />
+        </EntityType>
+        <EntityType Name="SystemAction" BaseType="TDFModels.SystemEntity">
+          <NavigationProperty Name="SystemActionRoles" Relationship="TDFModels.SystemActionSystemActionRole" FromRole="SystemAction" ToRole="SystemActionRole" />
+          <Property Name="Code" Type="String" Nullable="false" />
+          <Property Name="Desc" Type="String" Nullable="false" />
+          <Property Name="Displayed" Type="Boolean" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="Disabled" Type="Boolean" Nullable="false" />
+          <Property Name="Url" Type="String" Nullable="false" />
+          <Property Name="ModuleId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="SystemModule" Relationship="TDFModels.SystemModuleSystemAction" FromRole="SystemAction" ToRole="SystemModule" />
+          <Property Name="ActionType" Type="Int32" Nullable="false" />
+          <Property Name="ActionParentId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SystemModuleRole" BaseType="TDFModels.SystemEntity">
+          <Property Name="ModuleId" Type="Guid" Nullable="false" />
+          <Property Name="RoleId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="SystemRole" Relationship="TDFModels.SystemRoleSystemModuleRole" FromRole="SystemModuleRole" ToRole="SystemRole" />
+          <NavigationProperty Name="SystemModule" Relationship="TDFModels.SystemModuleSystemModuleRole" FromRole="SystemModuleRole" ToRole="SystemModule" />
+        </EntityType>
+        <EntityType Name="SystemActionRole" BaseType="TDFModels.SystemEntity">
+          <Property Name="ActionId" Type="Guid" Nullable="false" />
+          <Property Name="RoleId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="SystemRole" Relationship="TDFModels.SystemRoleSystemActionRole" FromRole="SystemActionRole" ToRole="SystemRole" />
+          <NavigationProperty Name="SystemAction" Relationship="TDFModels.SystemActionSystemActionRole" FromRole="SystemActionRole" ToRole="SystemAction" />
+        </EntityType>
+        <Association Name="SystemRoleSystemModuleRole">
+          <End Type="TDFModels.SystemRole" Role="SystemRole" Multiplicity="1" />
+          <End Type="TDFModels.SystemModuleRole" Role="SystemModuleRole" Multiplicity="*" />
+        </Association>
+        <Association Name="SystemModuleSystemModuleRole">
+          <End Type="TDFModels.SystemModule" Role="SystemModule" Multiplicity="1" />
+          <End Type="TDFModels.SystemModuleRole" Role="SystemModuleRole" Multiplicity="*" />
+        </Association>
+        <Association Name="SystemRoleSystemActionRole">
+          <End Type="TDFModels.SystemRole" Role="SystemRole" Multiplicity="1" />
+          <End Type="TDFModels.SystemActionRole" Role="SystemActionRole" Multiplicity="*" />
+        </Association>
+        <Association Name="SystemActionSystemActionRole">
+          <End Type="TDFModels.SystemAction" Role="SystemAction" Multiplicity="1" />
+          <End Type="TDFModels.SystemActionRole" Role="SystemActionRole" Multiplicity="*" />
+        </Association>
+        <Association Name="SystemModuleSystemAction">
+          <End Type="TDFModels.SystemModule" Role="SystemModule" Multiplicity="1" />
+          <End Type="TDFModels.SystemAction" Role="SystemAction" Multiplicity="*" />
+        </Association>
+        <EntityType Name="SystemLog" BaseType="TDFModels.EntityBase">
+          <Property Name="Ip" Type="String" Nullable="true" />
+          <Property Name="LogType" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" />
+          <Property Name="CreatorId" Type="Guid" Nullable="true" />
+          <Property Name="CreatorName" Type="String" Nullable="true" />
+        </EntityType>
+        <EntityType Name="DataDictionaryType" BaseType="TDFModels.SystemEntity">
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="32" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="IsHide" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DataDictionarys" Relationship="TDFModels.DataDictionaryTypeDataDictionary" FromRole="DataDictionaryType" ToRole="DataDictionary" />
+          <Property Name="Remark" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DataDictionary" BaseType="TDFModels.SystemEntity">
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" />
+          <Property Name="ParentId" Type="Guid" Nullable="false" />
+          <Property Name="Key" Type="String" Nullable="false" />
+          <Property Name="Values" Type="String" Nullable="false" MaxLength="Max" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="IsSystem" Type="Boolean" Nullable="false" />
+          <Property Name="Disabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DataDictionaryType" Relationship="TDFModels.DataDictionaryTypeDataDictionary" FromRole="DataDictionary" ToRole="DataDictionaryType" />
+        </EntityType>
+        <Association Name="DataDictionaryTypeDataDictionary">
+          <End Type="TDFModels.DataDictionaryType" Role="DataDictionaryType" Multiplicity="1" />
+          <End Type="TDFModels.DataDictionary" Role="DataDictionary" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="TDFModels" />
+        <Alias Key="Target" Value="TDFModels.Store" />
+        <EntityContainerMapping CdmEntityContainer="TDFModelsContainer" StorageEntityContainer="TDFModelsTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

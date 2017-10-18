@@ -1,0 +1,240 @@
+﻿@{
+    ViewBag.Title = "TDF后台管理系统";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link href="~/Scripts/t2m_adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Scripts/t2m_adminlte/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/Scripts/t2m_adminlte/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Scripts/t2m_adminlte/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="~/Scripts/t2m_adminlte/dist/css/skins/_all-skins.min.css" />
+    <!-- Bootstrap toastr 浮动提示框 -->
+    <link href="~/Scripts/t2m_adminlte/bower_components/bootstrap-toastr/toastr.min.css" rel="stylesheet" />
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="~/Scripts/t2m_adminlte/plugins/iCheck/all.css">
+    @RenderSection("styles", false)
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <header class="main-header">
+            <a href="/Home/Index" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>T</b>CL</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>TCL</b>微学堂</span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <!--当前登录用户头像-->
+                                <img src="~/Scripts/t2m_adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                <span class="hidden-xs">蒋世春</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src="~/Scripts/t2m_adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                    <p>
+                                        蒋世春 - Web Developer
+                                        <small>Member since Nov. 2012</small>
+                                    </p>
+                                </li>
+                                <!-- Menu Body -->
+                                <!--
+                                <li class="user-body">
+                                    <div class="row">
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Followers</a>
+                                        </div>
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Sales</a>
+                                        </div>
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Friends</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                -->
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="JavaScript:logOutExitAjax();" class="btn btn-default btn-flat">退 出</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <ul id="system_ul_menus" class="sidebar-menu" data-widget="tree">
+                    <li><a href="/Home"><i class="fa fa-home"></i> <span>工作台</span></a></li>
+                    @*<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>*@
+                    @*<li><a href="/Demo"><i class="fa fa-home"></i> <span>DEMO</span></a></li>*@
+                </ul>
+
+            </section>
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 2.4.0
+            </div>
+            <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+            reserved.
+        </footer>
+
+
+    </div>
+
+
+    <!-- jQuery 3 -->
+    <script src="~/Scripts/t2m_adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/Scripts/t2m_adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- jQuery-Validation 1.14.0 -->
+    <script src="~/Scripts/t2m_adminlte/bower_components/jquery-validation/js/jquery.validate.min.js"></script>
+    <script src="~/Scripts/t2m_adminlte/bower_components/jquery-validation/js/localization/messages_zh.min.js"></script>
+    <!-- Bootstrap toastr 浮动提示框 -->
+    <script src="~/Scripts/t2m_adminlte/bower_components/bootstrap-toastr/toastr.min.js"></script>
+    <!-- Bootstrap bootbox 弹出框 -->
+    <script src="~/Scripts/t2m_adminlte/bower_components/bootbox/bootbox.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="~/Scripts/t2m_adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/t2m_adminlte/dist/js/adminlte.js"></script>
+
+    <!-- iCheck 1.0.1 -->
+    <script src="~/Scripts/t2m_adminlte/plugins/iCheck/icheck.min.js"></script>
+    <!-- 自定义公共JS-->
+    <script src="~/Scripts/t2m_adminlte/js/Custom.js"></script>
+
+<script>
+    bootbox.setDefaults("locale", "zh_CN");
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
+    });
+    
+
+    var logOutExitAjax = function () {
+        bootbox.confirm("您确定要退出系统？", function (result) {
+            if (result) {
+                $.getJSON("@Url.Action("LoginOut","Login", new { area = "" })", { p: 1 }, function (result) {
+                    if (result.Success) {
+                        location.href = "@Url.Action("Index","Login", new { area = "" })";
+                    } else {
+                        showToast(3, '系统提示', result.Message);
+                    }
+
+                });
+            }
+        });
+    },
+    loadUserRoleMenus = function () {
+        $.getJSON('@Url.Action("GetMenusTree", "Menu", new { area = "" })', {}, function(result) {
+            if (!result.Success) {
+                showToast(3, '系统提示', result.Message);
+                return;
+            }
+            var $ulMenu = $("#system_ul_menus");
+
+            //获取当前选中菜单
+            var selectMenuCookie = getCookie("t2m_sel_menu");
+            if (selectMenuCookie)
+                selectMenuCookie = selectMenuCookie.split(",");
+            else
+                $('li:first-child', $ulMenu).addClass('active');
+
+            $.each(result.Value, function(i, item) {
+                $.each(item.children, function (j, menu) {
+                    var menuItemCssClass = 'treeview';
+                   
+                    if (selectMenuCookie) 
+                        menuItemCssClass += menu.id == selectMenuCookie[0] ? ' active menu-open' : '';
+
+                    var menuIcon = menu.iconClass;
+                    if (menuIcon)
+                        menuIcon = '<i class="'+ menuIcon +'"></i>';
+                    var menuItem = $('<li class="' + menuItemCssClass + '"><a href="JavaScript:;">' + menuIcon + ' <span>' + menu.text + '</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a></li>');
+                    
+                    if (menu.children && menu.children.length>0) {
+                        var menuItemChildCssClass = '',
+                            ulMenuItemChild = $('<ul class="treeview-menu"></ul>');
+                        $.each(menu.children, function(n, child) {
+                            if (selectMenuCookie)
+                                menuItemChildCssClass = child.id == selectMenuCookie[1] ? 'active' : '';
+                            var menuItemChild = $('<li class="' + menuItemChildCssClass + '"><a href="' + child.url + '" select_index="' + (menu.id+','+child.id) + '"><i class="fa fa-circle-o"></i> ' + child.text+ '</a></li>');
+                            ulMenuItemChild.append(menuItemChild);
+                        });
+                        
+                        $('a', ulMenuItemChild).click(function() {
+                            setCookie('t2m_sel_menu', $(this).attr('select_index'));
+                        });
+                        menuItem.append(ulMenuItemChild);
+                    }
+                    $ulMenu.append(menuItem);
+                });
+            });
+
+
+        });
+    }
+    //加载菜单
+    loadUserRoleMenus();
+</script>
+
+@RenderSection("scripts", required: false)
+</body>
+</html>

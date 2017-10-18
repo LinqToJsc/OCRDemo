@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0b693231bfc94d718fbf8053a2c3d5ed" Name="Diagram1" >
+        <EntityTypeShape EntityType="TDFModels.EntityBase" Width="3.25" PointX="4.625" PointY="0.5" FillColor="224, 224, 224" />
+        <EntityTypeShape EntityType="TDFModels.SystemEntity" Width="1.5" PointX="8.625" PointY="0.625" FillColor="224, 224, 224" />
+        <InheritanceConnector EntityType="TDFModels.SystemEntity" />
+        <EntityTypeShape EntityType="TDFModels.SystemMemberLogon" Width="2" PointX="9.75" PointY="3.625" />
+        <EntityTypeShape EntityType="TDFModels.SystemMember" Width="2" PointX="7" PointY="4" />
+        <InheritanceConnector EntityType="TDFModels.SystemMember" />
+        <InheritanceConnector EntityType="TDFModels.SystemMemberLogon" />
+        <AssociationConnector Association="TDFModels.SystemMemberLogonSystemMember" />
+        <EntityTypeShape EntityType="TDFModels.SystemRole" Width="1.875" PointX="2.125" PointY="4" />
+        <InheritanceConnector EntityType="TDFModels.SystemRole" />
+        <EntityTypeShape EntityType="TDFModels.SystemMemberRole" Width="1.875" PointX="4.5" PointY="4" FillColor="Fuchsia" />
+        <InheritanceConnector EntityType="TDFModels.SystemMemberRole" />
+        <AssociationConnector Association="TDFModels.SystemRoleSystemMemberRole" />
+        <AssociationConnector Association="TDFModels.SystemMemberRoleSystemMember" />
+        <EntityTypeShape EntityType="TDFModels.SystemModule" Width="1.875" PointX="2.125" PointY="8.875" />
+        <InheritanceConnector EntityType="TDFModels.SystemModule" />
+        <EntityTypeShape EntityType="TDFModels.SystemAction" Width="1.875" PointX="4.625" PointY="8.875" />
+        <InheritanceConnector EntityType="TDFModels.SystemAction" />
+        <EntityTypeShape EntityType="TDFModels.SystemModuleRole" Width="1.75" PointX="1.125" PointY="6.5" FillColor="Fuchsia" />
+        <EntityTypeShape EntityType="TDFModels.SystemActionRole" Width="1.875" PointX="3.25" PointY="6.5" FillColor="Fuchsia" />
+        <InheritanceConnector EntityType="TDFModels.SystemActionRole" />
+        <InheritanceConnector EntityType="TDFModels.SystemModuleRole" />
+        <AssociationConnector Association="TDFModels.SystemRoleSystemModuleRole" />
+        <AssociationConnector Association="TDFModels.SystemModuleSystemModuleRole" />
+        <AssociationConnector Association="TDFModels.SystemRoleSystemActionRole" />
+        <AssociationConnector Association="TDFModels.SystemActionSystemActionRole" />
+        <AssociationConnector Association="TDFModels.SystemModuleSystemAction" />
+        <EntityTypeShape EntityType="TDFModels.SystemLog" Width="1.5" PointX="11.75" PointY="0.875" />
+        <InheritanceConnector EntityType="TDFModels.SystemLog" />
+        <EntityTypeShape EntityType="TDFModels.DataDictionaryType" Width="1.5" PointX="0.625" PointY="0.75" />
+        <EntityTypeShape EntityType="TDFModels.DataDictionary" Width="1.5" PointX="0.5" PointY="3.25" />
+        <InheritanceConnector EntityType="TDFModels.DataDictionary" />
+        <InheritanceConnector EntityType="TDFModels.DataDictionaryType" />
+        <AssociationConnector Association="TDFModels.DataDictionaryTypeDataDictionary" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

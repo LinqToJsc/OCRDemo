@@ -1,0 +1,200 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<!-- Head Css Styles-->
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/Scripts/t2m_adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+    <style>
+        .example-modal .modal {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            right: auto;
+            left: auto;
+            display: block;
+            z-index: 1;
+        }
+
+        .example-modal .modal {
+            background: transparent !important;
+        }
+    </style>
+
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        权限管理
+        <small>系统角色</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 权限管理</a></li>
+        <li class="active">系统角色</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title"></h3>
+            <div class="box-tools pull-right">
+
+                <button class="btn btn-default btn-xs btn-box-tool" type="button" data-toggle="modal" data-target="#modal-default">
+                    <i class="fa fa-plus"></i> 新 增
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <form id="form_search" class="form-horizontal">
+
+                <div style="padding: 10px; margin-bottom: -10px;">
+                    <div class="pull-left" style="padding-bottom: 5px; visibility: hidden;">
+                        状态：<select class="form-control input-sm input-inline" name="Disabled" id="state">
+                            <option value="" selected="selected">全部</option>
+                            <option value="false">启用</option>
+                            <option value="true">禁用</option>
+                        </select>
+
+                    </div>
+                </div>
+
+            </form>
+            <table id="example1" class="table table-bordered table-striped table-hover"></table>
+        </div>
+
+    </div>
+    <!-- 弹出框模板 -->
+    <div class="modal fade" id="modal-default" data-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="form_edit" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">新增字典类型</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>名称</label>
+                                    <input name="Id" type="hidden" class="form-control" value="">
+                                    <input name="Name" type="text" class="form-control" maxlength="10" hideerror="hideerror" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>描述</label>
+                                    <input name="Remark" type="text" class="form-control" maxlength="100" hideerror="hideerror">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="hide">重置</button>
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取 消</button>
+                        <button type="submit" class="btn btn-primary">保 存</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- End 弹出框模板 -->
+
+</section>
+<!-- css 样式隐藏分页 #example1=tabeid-->
+<style>
+    #example1_paginate {
+        display: none;
+    }
+</style>
+
+@section scripts{
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net/buttons/dataTables.buttons.js"></script>
+    <script src="~/Scripts/t2m_adminlte/js/datatables/dataTablesForTDF.js"></script>
+    <script>
+
+        var opSort = function(data, type, row, meta) { //data是当前的数据  //row是整个行的数据 //meta表示 行 列
+                return meta.row + 1;
+            },
+            opColumns = function(data, type, row, meta) {
+                return ("<a href=\"@Url.Action("List")?typeid=_id_\">查看字典</a> ").replace(/_id_/ig, row.Id);
+            };
+
+        $(function() {
+
+            // 弹出框 菜单 新增/编辑操作
+            $('#modal-default').on('hidden.bs.modal', function() {
+                $('#modal-default').find("input[type='hidden']").val('');
+                $('#modal-default').find('button[type="reset"]').click();
+            });
+
+
+            customFormValidate($('#form_edit'), {}, function(form) {
+                var data = $(form).serializeObject();
+                $.ajax({
+                    url: '@Url.Action("AddDataType")',
+                    type: 'post',
+                    data: data,
+                    success: function(result) {
+                        if (result.Success) {
+                            showToast(0, '系统消息', '保存成功');
+                            //关闭弹出框
+                            $('#modal-default').modal('hide');
+
+                            //刷新列表
+                            reload();
+                            //.....
+                        } else {
+                            showToast(3, '系统消息', result.Message);
+                        }
+                    }
+                });
+            }, {});
+            // End 弹出框 菜单 新增/编辑操作
+
+            //修改列表
+            var tabColumns = [
+                    { "title": "序号", render: opSort }, //{}
+                    { "data": "Name", "title": "名称" },
+                    { "data": "Remark", "title": "描述" },
+                    { "data": "Code", "title": "Code" },
+                    { "data": "Id", "title": "操作", render: opColumns }
+                ],
+                opts = {
+                    showButtons: true, // 是否显示操作按钮组
+                    //buttons: [], //操作按钮组 在showButtons==true时 默认会有一个 刷新按钮
+                    ordering: false,
+                    lengthChange: false, //是否允许用户改变 PageSize
+                    pageSize: 999, //PageSize 设置 默认为 10
+                    searching: false, //是否开启 默认关键词搜索
+                    searchPlaceholder: "角色名称", //默认搜索框提示文字
+                    searchTextWidth: "200px", //默认搜索框的宽度 默认值：标准宽度
+                    paging: false
+                }
+                //重载当前页面
+                , reload = function () {
+                    if (dataTablesModel)
+                        dataTablesModel.ajax.reload();
+                };
+            var dataTablesModel = TdfDataTableParams.CreateDataTable('example1', 'form_search', '@Url.Action("GetDataDictionaryTypePagedList")', tabColumns, opts);
+            //筛选启用/禁用
+            $("#form_search [name='Disabled']").on("change", function() {
+                dataTablesModel.draw();
+            });
+
+
+            
+        });
+
+    </script>
+}

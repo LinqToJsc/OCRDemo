@@ -1,0 +1,149 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        用户管理
+        <small>新增用户</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 用户管理</a></li>
+        <li class="active">新增用户</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <form id="defaultForm" method="post">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"></h3>
+                <div class="box-tools pull-right">
+
+                    <a href="@Url.Action("Index")" class="btn btn-default btn-xs btn-box-tool">
+                        <i class="fa fa-list-ul"></i> 返回列表
+                    </a>
+                </div>
+            </div>
+            <div class="box-body">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>登录名<span class="text-red">*</span></label>
+                            <input name="Id" type="hidden" class="form-control" value="">
+                            <input name="Account" type="text" class="form-control" maxlength="32" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>姓名<span class="text-red">*</span></label>
+                            <input name="RealName" type="text" class="form-control" maxlength="32" placeholder="请输入员工姓名或产业名称" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>密码<span class="text-red">*</span></label>
+                            <input id="Password" name="Password" type="text" class="form-control" minlength="6" maxlength="12" placeholder="密码为6-12位的数字和字母的组合(可以有特殊符号)" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>确认密码<span class="text-red">*</span></label>
+                            <input name="ComfirmPassword" type="text" class="form-control" minlength="6" maxlength="12" placeholder="请再次输入密码" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>电话</label>
+                            <input name="MobilePhone" type="text" class="form-control" maxlength="11">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>邮箱</label>
+                            <input name="Email" type="email" class="form-control" maxlength="150" placeholder="请输入正确的邮箱地址">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>性别</label>
+                            <div class="form-group">
+                                <label class="col-md-4">
+                                    <input type="radio" name="Gender" class="minimal" value="true" checked> 男
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="Gender" class="minimal" value="false"> 女
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>状态</label>
+                            <div class="form-group">
+                                <label class="col-md-4">
+                                    <input type="radio" name="EnabledMark" class="minimal" value="true" checked>
+                                    启用
+                                </label>
+                                <label>
+                                    <input type="radio" name="EnabledMark" value="false" class="minimal">
+                                    禁用
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">保 存</button>
+            </div>
+
+        </div>
+    </form>
+</section>
+
+@section scripts{
+    <script>
+
+        $(function() {
+            customFormValidate($('#defaultForm'), { Password: { minlength: 6 }, ComfirmPassword: { equalTo: "#Password" } }, function (form) {
+                var data = $(form).serializeObject();
+                $.ajax({
+                    url: '@Url.Action("Add")',
+                    type: 'post',
+                    data: data,
+                    success: function(result) {
+                        if (result.Success) {
+                            showToast(0, '系统消息', "用户添加成功");
+                            setTimeout(function() {
+                                location.href = "@Url.Action("Index")";
+                            }, 500);
+
+                        } else {
+                            showToast(3, '系统消息', result.Message);
+                        }
+                    }
+                });
+            }, { Password: { minlength: "请输入6-12位密码，必须由数字和字母组成(可以有特殊符号)" }, ComfirmPassword: { equalTo: "您两次输入的密码不一致" } });
+
+        });
+
+
+    </script>
+
+
+}
+
