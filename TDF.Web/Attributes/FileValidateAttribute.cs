@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Http;
+using System.Web;
 using TDF.Core.Models;
 
 namespace TDF.Web.Attributes
@@ -53,6 +55,7 @@ namespace TDF.Web.Attributes
 
         public override bool IsValid(object value)
         {
+            var requst  =HttpContext.Current.Request;
             if (value == null && IsRequired)
             {
                 ErrorMessage = EmptyError;

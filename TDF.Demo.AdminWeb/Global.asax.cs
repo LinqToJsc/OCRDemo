@@ -25,6 +25,7 @@ using TDF.Demo.Service.Dtos.SystemManage;
 using TDF.Demo.Service.Mapper;
 using TDF.Web.Authentication.Services.Implements;
 using TDF.Web.Infrastructure;
+using TDF.Web.ModelBinder;
 
 namespace TDF.Demo.AdminWeb
 {
@@ -40,7 +41,8 @@ namespace TDF.Demo.AdminWeb
 
             //加载额外请求域名白名单
             RefererUriWhiteListConfig.LoadExtraRefererUri();
-
+            //注册我们自己定义的模型绑定规则
+            ModelBinderProviders.BinderProviders.Add(new FileModelBinderProvider());
             InitializerContext.Instance.IocInitialize(c =>
             {
                 //这里可以做依赖注入

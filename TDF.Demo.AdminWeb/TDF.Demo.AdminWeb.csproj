@@ -71,6 +71,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Interop.FCEngine">
+      <HintPath>C:\ProgramData\ABBYY\SDK\11\FlexiCapture Engine\Inc\.NET interops\v3.5\Interop.FCEngine.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -1994,6 +1998,34 @@
     <Content Include="Scripts\t2m_adminlte\plugins\jquery-multi-select\img\switch_original.png" />
     <Content Include="Scripts\t2m_adminlte\plugins\jquery-multi-select\js\jquery.multi-select.js" />
     <Content Include="Scripts\t2m_adminlte\plugins\jquery-multi-select\LICENSE.txt" />
+    <Content Include="Scripts\webuploader-0.1.5\BBBB.png" />
+    <Content Include="Scripts\webuploader-0.1.5\delete.png" />
+    <Content Include="Scripts\webuploader-0.1.5\delete2.png" />
+    <Content Include="Scripts\webuploader-0.1.5\delete3.png" />
+    <Content Include="Scripts\webuploader-0.1.5\delete4.png" />
+    <Content Include="Scripts\webuploader-0.1.5\delete5.png" />
+    <Content Include="Scripts\webuploader-0.1.5\delete6.png" />
+    <Content Include="Scripts\webuploader-0.1.5\img_del.png" />
+    <Content Include="Scripts\webuploader-0.1.5\img_del2.png" />
+    <Content Include="Scripts\webuploader-0.1.5\progress.png" />
+    <Content Include="Scripts\webuploader-0.1.5\style.css" />
+    <Content Include="Scripts\webuploader-0.1.5\Uploader.swf" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.css" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.custom.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.custom.min.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.fis.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.flashonly.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.flashonly.min.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.html5only.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.html5only.min.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.min.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.noimage.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.noimage.min.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.nolog.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.nolog.min.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.withoutimage.js" />
+    <Content Include="Scripts\webuploader-0.1.5\webuploader.withoutimage.min.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
@@ -2023,10 +2055,13 @@
     <Compile Include="Controllers\DemoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OCRDemoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BootstrapTableModel.cs" />
+    <Compile Include="Models\OCR\OcrImgToDataServer.cs" />
+    <Compile Include="Models\OCR\Tools\FceConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2152,7 +2187,10 @@
     <Content Include="Areas\SystemDictionary\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\SystemDictionary\Views\DataDictionary\Index.cshtml" />
     <Content Include="Areas\SystemDictionary\Views\DataDictionary\List.cshtml" />
+    <None Include="Properties\PublishProfiles\ocr.pubxml" />
     <None Include="Properties\PublishProfiles\TDFWebAdmin.pubxml" />
+    <Content Include="Views\OCRDemo\Index.cshtml" />
+    <Content Include="Scripts\webuploader-0.1.5\README.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

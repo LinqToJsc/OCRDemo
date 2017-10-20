@@ -156,6 +156,7 @@
     <Compile Include="Mappings\SystemMemberRoleMap.cs" />
     <Compile Include="Mappings\SystemModuleMap.cs" />
     <Compile Include="Mappings\SystemModuleRoleMap.cs" />
+    <Compile Include="Mappings\ImageMap.cs" />
     <Compile Include="Mappings\SystemRoleMap.cs" />
     <Compile Include="Mappings\_BaseEntityTypeConfiguration`1.cs" />
     <Compile Include="Mappings\SystemActionMap.cs" />
@@ -173,6 +174,10 @@
     <ProjectReference Include="..\TDF.Data.EntityFramework\TDF.Data.EntityFramework.csproj">
       <Project>{73052bac-0598-44af-a466-bb3c318c4d0d}</Project>
       <Name>TDF.Data.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TDF.Module.Images\TDF.Module.Images.csproj">
+      <Project>{FD1B4768-289C-4B0D-966D-D2FA51B46669}</Project>
+      <Name>TDF.Module.Images</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
