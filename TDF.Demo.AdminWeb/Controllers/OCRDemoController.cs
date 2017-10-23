@@ -18,10 +18,19 @@ namespace TDF.Demo.AdminWeb.Controllers
     /// <summary>
     /// 图片识别Demo
     /// </summary>
-    public class OCRDemoController : Controller
+    public class OCRDemoController : AdminControllerBase
     {
         // GET: OCRDemo
-        public ActionResult Index()
+        public override ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult Index2()
+        {
+            return View();
+        }
+
+        public ActionResult Add()
         {
             return View();
         }

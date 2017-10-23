@@ -2191,6 +2191,8 @@
     <None Include="Properties\PublishProfiles\TDFWebAdmin.pubxml" />
     <Content Include="Views\OCRDemo\Index.cshtml" />
     <Content Include="Scripts\webuploader-0.1.5\README.md" />
+    <Content Include="Views\OCRDemo\Index2.cshtml" />
+    <Content Include="Views\OCRDemo\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
