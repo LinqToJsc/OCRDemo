@@ -2060,6 +2060,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BootstrapTableModel.cs" />
+    <Compile Include="Models\OCR\OcrDataModel.cs" />
     <Compile Include="Models\OCR\OcrImgToDataServer.cs" />
     <Compile Include="Models\OCR\Tools\FceConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

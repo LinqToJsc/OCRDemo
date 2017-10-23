@@ -46,6 +46,7 @@ namespace TDF.Demo.AdminWeb.Controllers
             return result;
         }
 
+
         public ActionResult OCRImg(string imgPath=null)
         {
             //"img/{size}/t{imageType}t{yearMonth}-{id}.{format}"
@@ -70,6 +71,18 @@ namespace TDF.Demo.AdminWeb.Controllers
             }    
             
             return result;
+        }
+
+        /// <summary>
+        /// 将数据录入到数据库
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult SaveOcr(OcrDataModel model)
+        {
+
+            return Success();
         }
     }
 }

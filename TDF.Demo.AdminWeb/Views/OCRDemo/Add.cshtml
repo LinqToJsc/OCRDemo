@@ -146,7 +146,7 @@
                     </table>
 
                     <div class="row" style="margin-top: 20px; ">
-                        <button type="button" class="btn btn-primary btn-sm">保存到数据库</button>
+                        <button id="btn_saveOcr" type="button" class="btn btn-primary btn-sm">保存到数据库</button>
                     </div>
                 </div>
             </div>
@@ -157,8 +157,8 @@
 </section>
 
 @section scripts{
-<script src="~/Scripts/t2m_adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="~/Scripts/t2m_adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="~/Scripts/webuploader-0.1.5/webuploader.min.js"></script>
     <script src="~/Scripts/webuploader-0.1.5/webuploader.html5only.min.js"></script>
     <script>
@@ -286,23 +286,31 @@
 
 
         $(function() {
-
+            var colNames = ["Reference", "Designation", "Unit", "Quantity", "UnitPrice", "Total"];
+            var opColumns = function(data, type, row, meta) { //data是当前的数据  //row是整个行的数据 //meta表示 行 列
+                var col = meta.col;
+                var name = colNames[col];
+                var style = 'style="width:90px;"';
+                if (col < 2)
+                    style = '';
+                return '<input  type="text" td_name="' + name + '" class="form-control input-sm" ' + style + ' value="' + data + '">';
+            }
             var bindDataList = function(datas) {
                 $('#example1').dataTable({
                     //dom: "t",
                     searching: false,
                     ordering: false,
                     info: false,
-                    paging:false,
-                    lengthChange:false,
+                    paging: false,
+                    lengthChange: false,
                     data: datas,
                     columns: [
-                        { "data": "Reference", "title": "Reference"},
-                        { "data": "Designation", "title": "Designation" },
-                        { "data": "Unit", "title": "Unit" },
-                        { "data": "Quantity", "title": "Quantity" },
-                        { "data": "UnitPrice", "title": "UnitPrice" },
-                        { "data": "Total", "title": "Total" }
+                        { "data": "Reference", "title": "Reference", render: opColumns },
+                        { "data": "Designation", "title": "Designation", render: opColumns },
+                        { "data": "Unit", "title": "Unit", render: opColumns },
+                        { "data": "Quantity", "title": "Quantity", render: opColumns },
+                        { "data": "UnitPrice", "title": "UnitPrice", render: opColumns },
+                        { "data": "Total", "title": "Total", render: opColumns }
                     ]
                 });
 
@@ -331,6 +339,53 @@
 
             });
 
+
+            $('#btn_saveOcr').click(function() {
+                var oddTr = $('#example1').find('.odd');
+                var evenTr = $('#example1').find('.even');
+                var list = [];
+
+                oddTr.each(function(i, tr) {
+                    var model = {};
+                    model.Reference = $(tr).find("input[td_name='Reference']").val();
+                    model.Designation = $(tr).find("td[td_name='Designation']").val();
+                    model.Unit = $(tr).find("input[td_name='Unit']").val();
+                    model.Quantity = $(tr).find("input[td_name='Quantity']").val();
+                    model.UnitPrice = $(tr).find("input[td_name='UnitPrice']").val();
+                    model.Total = $(tr).find("input[td_name='Total']").val();
+                    list.push(model);
+                });
+
+                var subModel = {
+                    InvoiceNumber: $('#form_search').find("input[name='InvoiceNumber']").val(),
+                    InvoiceDate: $('#form_search').find("input[name='InvoiceDate']").val(),
+                    DeliveryAddress: $('#form_search').find("input[name='DeliveryAddress']").val(),
+                    TotalAmount: $('#form_search').find("input[name='TotalAmount']").val(),
+                    Company: $('#form_search').find("input[name='Company']").val(),
+                    ListData: list
+                };
+                subModel.ListData = JSON.stringify(list);
+                if (subModel.Company) {
+                    $.ajax({
+                        url: '@Url.Action("SaveOcr")',
+                        type: 'post',
+                        data: subModel,
+                        success: function(result) {
+                            if (result.Success) {
+                                showToast(0, '系统消息', "数据已录入系统");
+                                setTimeout(function() {
+                                    location.href = "@Url.Action("Index")";
+                                }, 500);
+
+                            } else {
+                                showToast(3, '系统消息', result.Message);
+                            }
+                        }
+                    });
+                } else {
+                    alert("公司名称必须有数据");
+                }
+            });
 
         });
 
