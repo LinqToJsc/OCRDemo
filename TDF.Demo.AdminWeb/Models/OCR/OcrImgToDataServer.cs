@@ -93,12 +93,16 @@ namespace TDF.Demo.AdminWeb.Models.OCR
             }
         }
 
-        private static void addDocumentNodeInstances(Dictionary<string, object> tempData, List<object> listData, IFieldInstances instances)
+        private static void addDocumentNodeInstances(Dictionary<string, object> tempData, List<object> listData,
+            IFieldInstances instances)
         {
             for (int i = 0; i < instances.Count; i++)
             {
-                listData.Add(tempData);
-                tempData = new Dictionary<string, object>();
+                if (tempData.Count > 0)
+                {
+                    listData.Add(tempData);
+                    tempData = new Dictionary<string, object>();
+                }
                 if (instances[i].Children != null)
                 {
                     addDocumentNodeChildren(tempData, listData, instances[i].Children);

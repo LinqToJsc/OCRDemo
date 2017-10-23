@@ -23,8 +23,8 @@
     <link rel="stylesheet" href="~/Scripts/t2m_adminlte/dist/css/skins/_all-skins.min.css" />
     <!-- Bootstrap toastr 浮动提示框 -->
     <link href="~/Scripts/t2m_adminlte/bower_components/bootstrap-toastr/toastr.min.css" rel="stylesheet" />
-    
-    
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -32,10 +32,12 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- Google Font -->
-    <link href="~/Scripts/webuploader-0.1.5/webuploader.css" rel="stylesheet"/>
+    <link href="~/Scripts/webuploader-0.1.5/webuploader.css" rel="stylesheet" />
     <link href="~/Scripts/webuploader-0.1.5/style.css" rel="stylesheet" />
     <style>
-        #example1 tbody > tr > td { height: 30px; }
+        #example1 tbody > tr > td {
+            height: 30px;
+        }
     </style>
 
 
@@ -46,7 +48,7 @@
             <h3 class="box-title"></h3>
             <div class="box-tools pull-right">
 
-                
+
             </div>
         </div>
         <div class="box-body">
@@ -89,20 +91,18 @@
 
                 </div>
                 <div class="col-md-7">
-
-                    <div  id="imgData" class="row">
-
-
+                    <div id="imgData" class="row">
+                        
                     </div>
 
-                    @*<div class="row">
+                    <div class="row">
                         <form id="form_search" class="form-horizontal">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">条件1</label>
+                                        <label class="col-sm-2 control-label">公司名称</label>
                                         <div class="col-sm-6">
-                                            <input name="ff1" type="text" class="form-control input-sm" placeholder="Email">
+                                            <input name="Company" type="text" class="form-control input-sm" placeholder="">
                                         </div>
                                     </div>
 
@@ -111,9 +111,9 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">条件3</label>
+                                        <label class="col-sm-2 control-label">地  址</label>
                                         <div class="col-sm-6">
-                                            <input name="ff3" type="text" class="form-control input-sm" placeholder="Email">
+                                            <input name="DeliveryAddress" type="text" class="form-control input-sm" placeholder="">
                                         </div>
                                     </div>
 
@@ -121,54 +121,92 @@
                                 </div>
 
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">票据单号</label>
+                                        <div class="col-sm-6">
+                                            <input name="InvoiceNumber" type="text" class="form-control input-sm" placeholder="">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">出票时间</label>
+                                        <div class="col-sm-6">
+                                            <input name="InvoiceDate" type="text" class="form-control input-sm" placeholder="">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">总金额</label>
+                                        <div class="col-sm-6">
+                                            <input name="TotalAmount" type="text" class="form-control input-sm" placeholder="">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                
+
+                            </div>
                         </form>
                     </div>
-                   
+
 
                     <table id="example1" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                         <thead style="background-color: #f4f4f4;">
                         <tr>
                             <th class="sorting_disabled" style="width: 200px; height: 32px;">
-                                dsds
+                                Reference
                             </th>
                             <th class="sorting_disabled" style="width: 200px;">
-                                dsds2
+                                Designation
                             </th>
                             <th class="sorting_disabled" style="width: 200px;">
-                                dsds3
+                                Unit
+                            </th>
+                            <th class="sorting_disabled" style="width: 200px;">
+                                Quantity
+                            </th>
+                            <th class="sorting_disabled" style="width: 200px;">
+                                UnitPrice
+                            </th>
+                            <th class="sorting_disabled" style="width: 200px;">
+                                Total
                             </th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        <tr class="odd">
-                            <td>ds</td>
-                            <td>ds</td>
-                            <td>ds</td>
-                        </tr>
-                        <tr class="even">
-                            <td>ds</td>
-                            <td>ds</td>
-                            <td>ds</td>
-                        </tr>
-                        <tr class="odd">
-                            <td>ds</td>
-                            <td>ds</td>
-                            <td>ds</td>
-                        </tr>
+
                         </tbody>
 
 
 
-                    </table>*@
+                    </table>
+
+                    <div class="row" style="margin-top: 20px; ">
+                        <button type="button" class="btn btn-primary btn-sm">保存到数据库</button>
+                    </div>
                 </div>
             </div>
 
-            
 
 
 
-            
+
+
         </div>
 
     </div>
@@ -195,156 +233,173 @@
     <script src="~/Scripts/t2m_adminlte/dist/js/adminlte.js"></script>
     <script src="~/Scripts/webuploader-0.1.5/webuploader.min.js"></script>
     <script src="~/Scripts/webuploader-0.1.5/webuploader.html5only.min.js"></script>
-<script>
-    /*
- * 文件上传
- * filePakerId {String}上传控件ID
- * divFileListId {String}文件列队容器ID
- * uploadServerUrl {String}文件上传服务接口URL
- * fileOptions {Object}[可选][文件参数:限制文件上传个数、单个文件大小、列队文件总大小]
- * formData {Object}[可选]文件上传附加参数
- * formFileVal {Object} [可选] [默认值：'FileModel'] 设置文件上传域的name。
- * deleteFileServerUrl {String}[可选]文件删除服务接口URL
- */
-    var loadImgFileupload = function(filePakerId, divFileListId, uploadServerUrl, fileOptions, formData, formFileVal, deleteFileServerUrl) {
+    <script>
+        /*
+     * 文件上传
+     * filePakerId {String}上传控件ID
+     * divFileListId {String}文件列队容器ID
+     * uploadServerUrl {String}文件上传服务接口URL
+     * fileOptions {Object}[可选][文件参数:限制文件上传个数、单个文件大小、列队文件总大小]
+     * formData {Object}[可选]文件上传附加参数
+     * formFileVal {Object} [可选] [默认值：'FileModel'] 设置文件上传域的name。
+     * deleteFileServerUrl {String}[可选]文件删除服务接口URL
+     */
+        var loadImgFileupload = function (filePakerId, divFileListId, uploadServerUrl, fileOptions, formData, formFileVal, deleteFileServerUrl) {
 
-        var fileOption = fileOptions || {
-            fileNumLimit: 15, //默认: 表示列队中只能有N个文件
-            fileSizeLimit: 50 * 1024 * 1024, //默认:表示列队中的所有文件不能超过 50 MB
-            fileSingleSizeLimit: 2 * 1024 * 1024 //默认:表示单个文件不能超过2MB
-        };
-
-
-        var fileDom = $('#' + filePakerId), //file Dom
-            queueFileDom = $('#' + divFileListId), //文件列队Dom
-            fileVal = formFileVal || "FileModel";
-
-        var jscUploader = WebUploader.create({
-            server: uploadServerUrl,
-            formData: formData || {},
-            fileVal: fileVal,
-            pick: { id: fileDom, multiple: false, label: "选择图片" },
-            resize: false,
-            height: 32,
-            fileNumLimit: fileOption.fileNumLimit,
-            fileSizeLimit: fileOption.fileSizeLimit,
-            fileSingleSizeLimit: fileOption.fileSingleSizeLimit,
-            accept: {
-                title: '图片',
-                extensions: 'gif,jpg,png',
-                mimeTypes: 'image/*'
-            },
-            onBeforeFileQueued: function(file) {
-                if (queueFileDom.children().length >= fileOption.fileNumLimit) {
-                    showToast(3, '系统提示', "最多只能上传" + fileOption.fileNumLimit + "张图片！");
-                    return false;
-                }
-                return true;
-            },
-            onFileQueued: function (file) {
-                $('#hidd_imgPath').val('');
-                var $img = $('<img src="" style="max-width: 560px; border: 1px solid #ccc;"/>');
-
-                // $list为容器jQuery实例
-                queueFileDom.html('');
-                queueFileDom.append($img);
-                //立即上传
-                jscUploader.upload(file);
-            },
-            onError: function(code) {
-                if (code === "Q_TYPE_DENIED")
-                    showToast(3, '系统提示', "不支持的文件格式！");
-                else if (code === "Q_EXCEED_NUM_LIMIT")
-                    showToast(3, '系统提示', "只能上传" + fileOption.fileNumLimit + "张图片！");
-                else if (code === "Q_EXCEED_SIZE_LIMIT")
-                    showToast(3, '系统提示', "只能上传小于" + (fileOption.fileSingleSizeLimit / 1048576) + "MB的图片！");
-                else if (code === "F_EXCEED_SIZE")
-                    showToast(3, '系统提示', "只能上传小于" + (fileOption.fileSingleSizeLimit / 1048576) + "MB的图片！");
-                else
-                    console.log(code);
-            },
-            onUploadSuccess: function (file, respData) {
-
-                if (respData.Success) {
-                    queueFileDom.find('img').attr('src', respData.Value.Item2);
-                    $('#hidd_imgPath').val(respData.Value.Item2);
-                }
-
-            },
-            onUploadComplete: function(file) {
-
-            },
-            onUploadProgress: function(file, percentage) {
-                var $li = $('#' + file.id),
-                    $percent = $li.find('.progress span');
-
-                // 避免重复创建
-                if (!$percent.length) {
-                    $percent = $('<p class="progress"><span></span></p>')
-                        .appendTo($li)
-                        .find('span');
-                }
-
-                $percent.css('width', percentage * 100 + '%');
-
-            },
-            onUploadError: function(file) {
-                var $li = $('#' + file.id),
-                    $error = $li.find('div.error'),
-                    $percent = $li.find('.progress span'),
-                    $delete = $li.find('div.delete');
-                if (!$delete.length) {
-                    $delete = $('<div class="delete"></div>').appendTo($li);
-                }
-                $delete.html('<img title="从列队中删除" data-fileId="' + file.id + '" src="/Scripts/webuploader-0.1.5/delete.png" />');
-                $delete.find("img").on('click', function() {
-                    var fileId = $(this).attr("data-fileId");
-                    jscUploader.removeFile(fileId, true);
-                    $('#' + fileId).remove();
-                });
-
-                $percent.hide();
-                // 避免重复创建
-                if (!$error.length) {
-                    $error = $('<div class="error"></div>').appendTo($li);
-                }
-
-                $error.text('上传失败');
-
-            }
-        });
-    };
-
-    //图片上传
-    loadImgFileupload('uploader-demo', 'divFlies', '@Url.Action("Upload")');
+            var fileOption = fileOptions || {
+                fileNumLimit: 15, //默认: 表示列队中只能有N个文件
+                fileSizeLimit: 50 * 1024 * 1024, //默认:表示列队中的所有文件不能超过 50 MB
+                fileSingleSizeLimit: 2 * 1024 * 1024 //默认:表示单个文件不能超过2MB
+            };
 
 
-    $(function() {
+            var fileDom = $('#' + filePakerId), //file Dom
+                queueFileDom = $('#' + divFileListId), //文件列队Dom
+                fileVal = formFileVal || "FileModel";
 
-        $('#btn_ocr').click(function () {
-            var imgPath = $('#hidd_imgPath').val();
-            if (imgPath) {
-                $.getJSON('@Url.Action("OCRImg")', { imgPath: imgPath }, function (data) {
-                    if (data.Success) {
-                        $('#imgData').html(JSON.stringify(data.Value));
-                    } else {
-                        
+            var jscUploader = WebUploader.create({
+                server: uploadServerUrl,
+                formData: formData || {},
+                fileVal: fileVal,
+                pick: { id: fileDom, multiple: false, label: "选择图片" },
+                resize: false,
+                height: 32,
+                fileNumLimit: fileOption.fileNumLimit,
+                fileSizeLimit: fileOption.fileSizeLimit,
+                fileSingleSizeLimit: fileOption.fileSingleSizeLimit,
+                accept: {
+                    title: '图片',
+                    extensions: 'gif,jpg,png',
+                    mimeTypes: 'image/*'
+                },
+                onBeforeFileQueued: function (file) {
+                    if (queueFileDom.children().length >= fileOption.fileNumLimit) {
+                        showToast(3, '系统提示', "最多只能上传" + fileOption.fileNumLimit + "张图片！");
+                        return false;
+                    }
+                    return true;
+                },
+                onFileQueued: function (file) {
+                    $('#hidd_imgPath').val('');
+                    var $img = $('<img src="" style="max-width: 560px; border: 1px solid #ccc;"/>');
+
+                    // $list为容器jQuery实例
+                    queueFileDom.html('');
+                    queueFileDom.append($img);
+                    //立即上传
+                    jscUploader.upload(file);
+                },
+                onError: function (code) {
+                    if (code === "Q_TYPE_DENIED")
+                        showToast(3, '系统提示', "不支持的文件格式！");
+                    else if (code === "Q_EXCEED_NUM_LIMIT")
+                        showToast(3, '系统提示', "只能上传" + fileOption.fileNumLimit + "张图片！");
+                    else if (code === "Q_EXCEED_SIZE_LIMIT")
+                        showToast(3, '系统提示', "只能上传小于" + (fileOption.fileSingleSizeLimit / 1048576) + "MB的图片！");
+                    else if (code === "F_EXCEED_SIZE")
+                        showToast(3, '系统提示', "只能上传小于" + (fileOption.fileSingleSizeLimit / 1048576) + "MB的图片！");
+                    else
+                        console.log(code);
+                },
+                onUploadSuccess: function (file, respData) {
+
+                    if (respData.Success) {
+                        queueFileDom.find('img').attr('src', respData.Value.Item2);
+                        $('#hidd_imgPath').val(respData.Value.Item2);
                     }
 
-                });
-            } else {
-                alert('请选择要识别的图片');
-            }
+                },
+                onUploadComplete: function (file) {
+
+                },
+                onUploadProgress: function (file, percentage) {
+                    var $li = $('#' + file.id),
+                        $percent = $li.find('.progress span');
+
+                    // 避免重复创建
+                    if (!$percent.length) {
+                        $percent = $('<p class="progress"><span></span></p>')
+                            .appendTo($li)
+                            .find('span');
+                    }
+
+                    $percent.css('width', percentage * 100 + '%');
+
+                },
+                onUploadError: function (file) {
+                    var $li = $('#' + file.id),
+                        $error = $li.find('div.error'),
+                        $percent = $li.find('.progress span'),
+                        $delete = $li.find('div.delete');
+                    if (!$delete.length) {
+                        $delete = $('<div class="delete"></div>').appendTo($li);
+                    }
+                    $delete.html('<img title="从列队中删除" data-fileId="' + file.id + '" src="/Scripts/webuploader-0.1.5/delete.png" />');
+                    $delete.find("img").on('click', function () {
+                        var fileId = $(this).attr("data-fileId");
+                        jscUploader.removeFile(fileId, true);
+                        $('#' + fileId).remove();
+                    });
+
+                    $percent.hide();
+                    // 避免重复创建
+                    if (!$error.length) {
+                        $error = $('<div class="error"></div>').appendTo($li);
+                    }
+
+                    $error.text('上传失败');
+
+                }
+            });
+        };
+
+        //图片上传
+        loadImgFileupload('uploader-demo', 'divFlies', '@Url.Action("Upload")');
+
+
+        $(function () {
+
+            $('#btn_ocr').click(function () {
+                var imgPath = $('#hidd_imgPath').val();
+                if (imgPath) {
+                    $.getJSON('@Url.Action("OCRImg")', { imgPath: imgPath }, function (data) {
+                        if (data.Success) {
+                            $('#imgData').html(JSON.stringify(data.Value));
+                            $("[name='InvoiceNumber']").val(data.Value.Data.InvoiceNumber);
+                            $("[name='InvoiceDate']").val(data.Value.Data.InvoiceDate);
+                            $("[name='DeliveryAddress']").val(data.Value.Data.DeliveryAddress);
+                            $("[name='TotalAmount']").val(data.Value.Data.TotalAmount);
+                            $("[name='Company']").val(data.Value.Data.Company);
+                            $('#example1').find('tbody').html('');
+                            $.each(data.Value.ListData,function(i, item) {
+                                
+                                var tr = $('<tr></tr>');
+                                tr.append('<td>' + item.Reference + '</td>');
+                                tr.append('<td>' + item.Designation + '</td>');
+                                tr.append('<td>' + item.Unit + '</td>');
+                                tr.append('<td>' + item.Quantity + '</td>');
+                                tr.append('<td>' + item.UnitPrice + '</td>');
+                                tr.append('<td>' + item.Total + '</td>');
+
+                              
+                                $('#example1').find('tbody').append(tr);
+                            });
+                        } else {
+                            
+                        }
+
+                    });
+                } else {
+                    alert('请选择要识别的图片');
+                }
+
+            });
+
 
         });
 
 
-    });
-
-
-</script>
+    </script>
 
 </body>
 </html>
-
-
