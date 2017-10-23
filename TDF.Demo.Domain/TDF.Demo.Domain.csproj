@@ -86,6 +86,8 @@
     </Compile>
     <Compile Include="Entities\Extensions\DataDictionary\DataDictionaryExtensions.cs" />
     <Compile Include="Entities\Extensions\EntityExtensions.cs" />
+    <Compile Include="Entities\OCR\OcrData.cs" />
+    <Compile Include="Entities\OCR\OcrListData.cs" />
     <Compile Include="Entities\Partial\DataDictionary\DataDictionary.cs" />
     <Compile Include="Entities\Partial\EntityBase.cs" />
     <Compile Include="Entities\Partial\SystemEntity.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="Infrastructure\IModificationAudited.cs" />
     <Compile Include="Mappings\DataDictionaryMap.cs" />
     <Compile Include="Mappings\DataDictionaryTypeMap.cs" />
+    <Compile Include="Mappings\OcrDataMap.cs" />
     <Compile Include="Mappings\SystemActionRoleMap.cs" />
     <Compile Include="Mappings\SystemLogMap.cs" />
     <Compile Include="Mappings\SystemMemberLogonMap.cs" />
