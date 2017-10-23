@@ -15,6 +15,9 @@ using TDF.Web.Models;
 
 namespace TDF.Demo.AdminWeb.Controllers
 {
+    /// <summary>
+    /// 图片识别Demo
+    /// </summary>
     public class OCRDemoController : Controller
     {
         // GET: OCRDemo
