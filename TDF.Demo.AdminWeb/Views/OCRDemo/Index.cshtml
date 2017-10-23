@@ -197,7 +197,7 @@
                     </table>
 
                     <div class="row" style="margin-top: 20px; ">
-                        <button type="button" class="btn btn-primary btn-sm">保存到数据库</button>
+                        <button id="btn_saveOcr" type="button" class="btn btn-primary btn-sm">保存到数据库</button>
                     </div>
                 </div>
             </div>
@@ -358,7 +358,25 @@
 
 
         $(function () {
+            $('#btn_saveOcr').click(function () {
+                alert(11);
+                $.ajax({
+                    url: '@Url.Action("SaveOcr")',
+                    type: 'post',
+                    success: function(result) {
+                        if (result.Success) {
+                            showToast(0, '系统消息', "添加成功");
+                            setTimeout(function() {
+                                location.href = "@Url.Action("Index")";
+                            }, 500);
 
+                        } else {
+                            showToast(3, '系统消息', result.Message);
+                        }
+                    }
+                });
+
+            });
             $('#btn_ocr').click(function () {
                 var imgPath = $('#hidd_imgPath').val();
                 if (imgPath) {
@@ -372,7 +390,7 @@
                             $("[name='Company']").val(data.Value.Data.Company);
                             $('#example1').find('tbody').html('');
                             $.each(data.Value.ListData,function(i, item) {
-                                
+
                                 var tr = $('<tr></tr>');
                                 tr.append('<td>' + item.Reference + '</td>');
                                 tr.append('<td>' + item.Designation + '</td>');
@@ -381,11 +399,11 @@
                                 tr.append('<td>' + item.UnitPrice + '</td>');
                                 tr.append('<td>' + item.Total + '</td>');
 
-                              
+
                                 $('#example1').find('tbody').append(tr);
                             });
                         } else {
-                            
+
                         }
 
                     });

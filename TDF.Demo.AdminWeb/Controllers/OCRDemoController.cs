@@ -73,15 +73,28 @@ namespace TDF.Demo.AdminWeb.Controllers
             return result;
         }
 
+        ///// <summary>
+        ///// 将数据录入到数据库
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public ActionResult SaveOcr(OcrDataModel model)
+        //{
+
+        //    return Success();
+        //}
+
+
         /// <summary>
         /// 将数据录入到数据库
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult SaveOcr(OcrDataModel model)
+        public ActionResult SaveOcr()
         {
-
+            
             return Success();
         }
     }
