@@ -20,7 +20,7 @@ namespace TDF.Demo.AdminWeb.Controllers
         public ILog Log => LogFactory.GetLogger(GetType());
 
         /// <summary>
-        /// 当前的登录用户
+        /// 当前的登录用户ff 
         /// </summary>
         protected OperatorModel CurrentOperator => _currentOperator ?? (_currentOperator = Ioc.Resolve<IOperatorProvider>().GetCurrent());
 
