@@ -78,6 +78,8 @@
     <Compile Include="Dtos\DataDictionary\DataDictionaryDtoExtensions.cs" />
     <Compile Include="Dtos\DataDictionary\DataDictionaryTypeBasicDto.cs" />
     <Compile Include="Dtos\DataDictionary\DataDictionaryTypeDto.cs" />
+    <Compile Include="Dtos\OcrData\OcrDataCriteria.cs" />
+    <Compile Include="Dtos\OcrData\OcrDataDto.cs" />
     <Compile Include="Dtos\SystemManage\Action\ActionDtoExtensions.cs" />
     <Compile Include="Dtos\SystemManage\Action\SystemActionDto.cs" />
     <Compile Include="Dtos\SystemManage\Member\MemberCriteria.cs" />
@@ -91,6 +93,8 @@
     <Compile Include="Dtos\SystemManage\Role\RoleCriteria.cs" />
     <Compile Include="Dtos\SystemManage\Role\RoleDtoExtensions.cs" />
     <Compile Include="Dtos\SystemManage\Role\SystemRoleDto.cs" />
+    <Compile Include="Implements\OcrDataService.cs" />
+    <Compile Include="IOcrDataService.cs" />
     <Compile Include="Mapper\AutoMapperInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemManage\Implemented\RoleAuthorizeService.cs" />

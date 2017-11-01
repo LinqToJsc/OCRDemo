@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using TDF.Demo.Domain.Entities.Partial.SystemManage.Enums;
-
 namespace TDF.Demo.Domain.Entities
 {
     using System;
@@ -30,9 +28,9 @@ namespace TDF.Demo.Domain.Entities
         public bool Disabled { get; set; }
         public string Url { get; set; }
         public System.Guid ModuleId { get; set; }
-        public SystemActionType ActionType { get; set; } = SystemActionType.Page;
-        public System.Guid ActionParentId { get; set; } = System.Guid.Empty;
-
+        public int ActionType { get; set; }
+        public System.Guid ActionParentId { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SystemActionRole> SystemActionRoles { get; set; }
         public virtual SystemModule SystemModule { get; set; }

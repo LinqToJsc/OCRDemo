@@ -92,21 +92,21 @@ namespace TDF.Demo.Repository
                 ModifierName = string.Empty,
                 Displayed = true
             });
-            context.Set<SystemModule>().AddOrUpdate(x => x.Name, new SystemModule()
-            {
-                Name = "用户管理",
-                Id = Guid.Parse("e21337ee-20be-4d3c-91f6-e6ff3ac4029f"),
-                ParentId = Guid.Parse("ee1337ee-20be-4d3c-91f6-e6ff3ac4029f"),
-                Disabled = false,
-                Sort = 1,
-                Code = Common.BuildKey(),
-                CreatedTime = DateTime.Now,
-                CreatorName = string.Empty,
-                Desc = string.Empty,
-                IconClass = string.Empty,
-                ModifierName = string.Empty,
-                Displayed = true
-            });
+            //context.Set<SystemModule>().AddOrUpdate(x => x.Name, new SystemModule()
+            //{
+            //    Name = "用户管理",
+            //    Id = Guid.Parse("e21337ee-20be-4d3c-91f6-e6ff3ac4029f"),
+            //    ParentId = Guid.Parse("ee1337ee-20be-4d3c-91f6-e6ff3ac4029f"),
+            //    Disabled = false,
+            //    Sort = 1,
+            //    Code = Common.BuildKey(),
+            //    CreatedTime = DateTime.Now,
+            //    CreatorName = string.Empty,
+            //    Desc = string.Empty,
+            //    IconClass = string.Empty,
+            //    ModifierName = string.Empty,
+            //    Displayed = true
+            //});
             context.Set<SystemModule>().AddOrUpdate(x => x.Name, new SystemModule()
             {
                 Name = "数据字典",

@@ -24,7 +24,7 @@ namespace TDF.Demo.Service.Dtos.SystemManage.Action
                 Name = x.Name,
                 Sort = x.Sort,
                 ModuleSort = x.SystemModule.Sort,
-                ActionType = x.ActionType,
+               // ActionType = x.ActionType,
                 ActionParentId = x.ActionParentId
             });
         }

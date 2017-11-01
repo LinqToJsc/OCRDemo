@@ -39,6 +39,8 @@
         <InheritanceConnector EntityType="TDFModels.DataDictionary" />
         <InheritanceConnector EntityType="TDFModels.DataDictionaryType" />
         <AssociationConnector Association="TDFModels.DataDictionaryTypeDataDictionary" />
+        <EntityTypeShape EntityType="TDFModels.ocr_data" Width="1.5" PointX="2.375" PointY="0.5" />
+        <InheritanceConnector EntityType="TDFModels.ocr_data" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -201,6 +201,14 @@
           <End Type="TDFModels.DataDictionaryType" Role="DataDictionaryType" Multiplicity="1" />
           <End Type="TDFModels.DataDictionary" Role="DataDictionary" Multiplicity="*" />
         </Association>
+        <EntityType Name="ocr_data" BaseType="TDFModels.EntityBase">
+          <Property Name="InvoiceNumber" Type="String" Nullable="false" />
+          <Property Name="InvoiceDate" Type="String" Nullable="false" />
+          <Property Name="DeliveryAddress" Type="String" Nullable="false" />
+          <Property Name="TotalAmount" Type="String" Nullable="false" />
+          <Property Name="Company" Type="String" Nullable="false" />
+          <Property Name="ListData" Type="String" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

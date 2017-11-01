@@ -1,0 +1,254 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<!-- Head Css Styles-->
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/Scripts/t2m_adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link href="~/Scripts/t2m_adminlte/plugins/jquery-multi-select/css/multi-select.css" rel="stylesheet" />
+    <style>
+        .example-modal .modal {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            right: auto;
+            left: auto;
+            display: block;
+            z-index: 1;
+        }
+
+        .example-modal .modal {
+            background: transparent !important;
+        }
+    </style>
+
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        OCR录入数据
+        <small>数据列表</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> OCR录入数据</a></li>
+        <li class="active">数据列表</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title"></h3>
+            <div class="box-tools pull-right">
+
+                <a href="@Url.Action("Add")" class="btn btn-default btn-xs btn-box-tool">
+                    <i class="fa fa-plus"></i> 新 增
+                </a>
+            </div>
+        </div>
+        <div class="box-body">
+            <form id="form_search" class="form-horizontal">
+
+                <div style="padding: 10px; margin-bottom: -10px;">
+                    <div class="pull-left" style="padding-bottom: 5px;">
+                        @*状态：<select class="form-control input-sm input-inline" name="Enabled" id="state">
+                            <option value="" selected="selected">全部</option>
+                            <option value="true">启用</option>
+                            <option value="false">禁用</option>
+                        </select>*@
+
+                    </div>
+                </div>
+
+            </form>
+
+            <table id="example1" class="table table-bordered table-striped table-hover"></table>
+
+        </div>
+
+    </div>
+</section>
+<!-- css 样式隐藏分页 #example1=tabeid-->
+<style>
+    #example1_paginate {
+        display: none;
+    }
+</style>
+
+
+@section scripts{
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/t2m_adminlte/bower_components/datatables.net/buttons/dataTables.buttons.js"></script>
+    <script src="~/Scripts/t2m_adminlte/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+    <script src="~/Scripts/t2m_adminlte/js/datatables/dataTablesForTDF.js"></script>
+    <script>
+        var opSort = function(data, type, row, meta) { //data是当前的数据  //row是整个行的数据 //meta表示 行 列
+            //console.log(meta);
+            return meta.row;
+        };
+        var opColumns = function (data, type, row, meta) { //data是当前的数据  //row是整个行的数据 //meta表示 行 列
+            return ("<a href=\"@Url.Action("Add")?Id=_id_\">编辑</a>").replace(/_id_/ig, row.Id).replace(/_name_/ig, encodeURI(row.Account));
+                if (row.IsSuperAdmin) {
+                    return "-";
+                } else if (row.EnabledMark == null || row.EnabledMark) {
+                    return ("<a href=\"@Url.Action("Edit")?Id=_id_\">编辑</a> | <a href=\"javascript:_assignment('_id_');\">角色</a> | <a href=\"javascript:_updateState('_id_'," + false + ");\">" + "禁用" + "</a>").replace(/_id_/ig, row.Id).replace(/_name_/ig, encodeURI(row.Account));
+
+                } else if (!row.EnabledMark) {
+                    return ("<a href=\"@Url.Action("Edit")?Id=_id_\">编辑</a> | <a href=\"javascript:_assignment('_id_');\">角色</a> | <a href=\"javascript:_updateState('_id_'," + true + ");\">" + "启用" + "</a> | <a href=\"javascript:_delte('_id_');\">删除</a>").replace(/_id_/ig, row.Id).replace(/_name_/ig, encodeURI(row.Account));
+
+                }
+                return "-";
+            },
+            opGenderColumns = function(data, type, row, meta) {
+                if (data == null)
+                    return "未知";
+                if (data)
+                    return "男";
+                return "女";
+            },
+            opStateColumns = function(data, type, row, meta) {
+                if (data == null)
+                    return "启用";
+                if (data)
+                    return "启用";
+                return "禁用";
+            };
+        var _updateState = function(id, state) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Enable")",
+                    data: { memberId: id, enabled: state },
+                    async: false,
+                    success: function(result) {
+                        if (result.Success) {
+                            //刷新 表格
+                            reload();
+                        } else {
+                            showToast(3, '系统消息', result.Message);
+                        }
+                    }
+                });
+            },
+            _delte = function(id) {
+                bootbox.confirm("是否确认删除？", function(result) {
+                    if (!result) {
+                        return;
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("DeleteMember")",
+                        data: { memberId: id },
+                        async: false,
+                        success: function(result) {
+                            if (result.Success) {
+                                //刷新 表格
+                                reload();
+                            } else {
+                                showToast(3, '系统消息', result.Message);
+                            }
+                        }
+                    });
+                });
+
+            },
+            _assignment = function(id) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Assignment")",
+                    data: { memberId: id },
+                    async: false,
+                    success: function(result) {
+                        if (result.Success) {
+                            var data = result.Value;
+                            var form = $('#form_edit');
+                            $('#modal-default').find('.modal-title').html('<em style="color:red;">' + data.UserName + '</em>  的角色：');
+                            $('input[name="MemberId"]', form).val(data.MemberId);
+
+                            $('#my_multi_select1').html('');
+                            $.each(data.NotInRoles, function(i, item) {
+                                $('#my_multi_select1').append('<option value="' + item.Id + '">' + item.Name + '</option>');
+                            });
+                            $.each(data.InRoles, function(i, item) {
+                                $('#my_multi_select1').append('<option value="' + item.Id + '" selected>' + item.Name + '</option>');
+                            });
+                            $('#my_multi_select1').multiSelect('refresh');
+
+
+                            //打开 弹出窗
+                            $('#modal-default').modal('show');
+
+                        } else {
+                            showToast(3, '系统消息', result.Message);
+                        }
+                    }
+                });
+            };
+
+        $(function() {
+
+
+            //修改列表
+            tabColumns = [
+                { "title": "序号", sortable: true, render: opSort }, //{}
+                { "data": "InvoiceNumber", "title": "编码"},
+                { "data": "InvoiceDate", "title": "时间" },
+                { "data": "DeliveryAddress", "title": "地址" },
+                { "data": "TotalAmount", "title": "价格" },
+                { "data": "Company", "title": "客户名称"},
+                { "data": "Id", "title": "操作", render: opColumns }
+            ];
+            //通常用于对参数的额外加工 回调函数
+            var serverParam = function (dataParams) {
+                return dataParams;
+            }
+
+            var opts = {
+                showButtons: true, // 是否显示操作按钮组
+                buttons: [], //操作按钮组 在showButtons==true时 默认会有一个 刷新按钮
+                ordering:false,
+                lengthChange: false, //是否允许用户改变 PageSize
+                pageSize: 20, //PageSize 设置 默认为 10
+                searching: false, //是否开启 默认关键词搜索
+                searchPlaceholder: "角色名称", //默认搜索框提示文字
+                searchTextWidth: "200px" ,//默认搜索框的宽度 默认值：标准宽度
+                paging:false
+            };
+            var dataTablesModel = TdfDataTableParams.CreateDataTable('example1', 'form_search', '@Url.Action("GetPagedList")', tabColumns, opts, serverParam);
+
+
+            // 用户赋予 角色
+            var submitTreeHandler = function() {
+                var data = $('#form_edit').serializeObject();
+                if (data && data.codeList)
+                    data.codeList = JSON.stringify(data.codeList);
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SaveAssignment")',
+                    data: data,
+                    dataType: 'JSON',
+                    success: function(result) {
+                        if (result.Success) {
+                            showToast(0, '系统消息', '操作成功');
+                            $('#modal-default').modal('hide');
+                        } else {
+                            showToast(3, '系统消息', result.Message); //错误信息
+                        }
+                    },
+                    async: false
+                });
+            };
+            //筛选启用/禁用
+            $("#form_search [name='Enabled']").on("change", function () {
+                dataTablesModel.draw();
+            })
+            //重载当前页面
+            reload = function () {
+                dataTablesModel.ajax.reload();
+            }
+            $('#btnSubmitForm1').click(submitTreeHandler); //保存
+        });
+
+    </script>
+}

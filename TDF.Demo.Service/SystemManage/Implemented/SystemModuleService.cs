@@ -230,16 +230,16 @@ namespace TDF.Demo.Service.SystemManage
 
         public void AddAction(SystemActionDto action)
         {
-            using (var repository = Ioc.Resolve<IRepositoryBase<SystemAction>>())
-            {
-                var sort = repository.IQueryable().Where(x => x.ActionType == action.ActionType).Max(x => (int?)x.Sort) ?? 0;
+            //using (var repository = Ioc.Resolve<IRepositoryBase<SystemAction>>())
+            //{
+            //    var sort = repository.IQueryable().Where(x => x.ActionType == action.ActionType).Max(x => (int?)x.Sort) ?? 0;
 
-                var entity = AutoMapper.Mapper.Map<SystemAction>(action);
-                entity.Code = Common.BuildKey();
-                entity.Sort = sort + 1;
-                entity.CreateByOperator();
-                repository.Insert(entity);
-            }
+            //    var entity = AutoMapper.Mapper.Map<SystemAction>(action);
+            //    entity.Code = Common.BuildKey();
+            //    entity.Sort = sort + 1;
+            //    entity.CreateByOperator();
+            //    repository.Insert(entity);
+            //}
         }
 
         public void UpdateAction(SystemActionDto action)

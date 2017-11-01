@@ -109,10 +109,25 @@
             <section class="sidebar">
                 <ul id="system_ul_menus" class="sidebar-menu" data-widget="tree">
                     <li><a href="/Home"><i class="fa fa-home"></i> <span>工作台</span></a></li>
-                    @*<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>*@
-                    @*<li><a href="/Demo"><i class="fa fa-home"></i> <span>DEMO</span></a></li>*@
+                  
+                    <li class="treeview menu-open">
+                        <a href="JavaScript:;"> 
+                            <span>Ocr文字识别</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu" style="display: block;">
+                            <li class="">
+                                <a href="/OCRDemo/Add" select_index="e11337ee-20be-4d3c-91f6-e6ff3ac4029f,be1337ee-20be-4d3c-91f6-e6ff3ac4029f">
+                                    <i class="fa fa-circle-o"></i> 开始识别
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="/OCRDemo/list/" select_index="e11337ee-20be-4d3c-91f6-e6ff3ac4029f,ae1337ee-20be-4d3c-91f6-e6ff3ac4029f">
+                                    <i class="fa fa-circle-o"></i> 数据列表
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
 
             </section>

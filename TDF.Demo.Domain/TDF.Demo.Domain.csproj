@@ -86,8 +86,10 @@
     </Compile>
     <Compile Include="Entities\Extensions\DataDictionary\DataDictionaryExtensions.cs" />
     <Compile Include="Entities\Extensions\EntityExtensions.cs" />
-    <Compile Include="Entities\OCR\OcrData.cs" />
     <Compile Include="Entities\OCR\OcrListData.cs" />
+    <Compile Include="Entities\ocr_data.cs">
+      <DependentUpon>TDFModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Partial\DataDictionary\DataDictionary.cs" />
     <Compile Include="Entities\Partial\EntityBase.cs" />
     <Compile Include="Entities\Partial\SystemEntity.cs" />

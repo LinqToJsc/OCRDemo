@@ -30,14 +30,15 @@ namespace TDF.Demo.Domain.Entities.Partial.SystemManage.Extensions
 
         public static IQueryable<SystemAction> WhereByActionType(this IQueryable<SystemAction> query, SystemActionType? actionType)
         {
-            if (actionType == null)
-            {
-                return query;
-            }
-            return
-                query.Where(
-                    x =>
-                        x.ActionType== actionType.Value);
+            return query;
+            //if (actionType == null)
+            //{
+            //    return query;
+            //}
+            //return
+            //    query.Where(
+            //        x =>
+            //            x.ActionType== actionType.Value);
         }
     }
 }

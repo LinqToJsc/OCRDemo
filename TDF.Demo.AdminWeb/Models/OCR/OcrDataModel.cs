@@ -7,6 +7,7 @@ namespace TDF.Demo.AdminWeb.Models.OCR
 {
     public class OcrDataModel
     {
+       public string Id { get; set; }
         public string InvoiceNumber { get; set; }
         public string InvoiceDate { get; set; }
         public string DeliveryAddress { get; set; }
