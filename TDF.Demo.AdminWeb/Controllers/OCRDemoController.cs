@@ -42,7 +42,8 @@ namespace TDF.Demo.AdminWeb.Controllers
         {
             if (Id == null)
             {
-                return View();
+                OcrDataDto dto = new OcrDataDto();
+                return View(dto);
             }
             else
             {
