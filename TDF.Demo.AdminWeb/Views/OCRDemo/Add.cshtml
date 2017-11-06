@@ -55,8 +55,12 @@
                         </div>
 
                         <div class="col-md-6">
-                            <input type="hidden" id="hidd_imgPath" value="" />
-                            <button id="btn_ocr" type="button" class="btn btn-default btn-sm">开始识别</button>
+                            @if (!ViewBag.ListGo)
+                            {
+                                <input type="hidden" id="hidd_imgPath" value="" />
+                                <button id="btn_ocr" type="button" class="btn btn-default btn-sm">开始识别</button>
+                            }
+                            
                         </div>
                     </div>
 
@@ -84,7 +88,7 @@
 
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-6" >
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">地  址</label>
                                         <div class="col-sm-8">
@@ -135,7 +139,7 @@
 
 
                             </div>
-                            <input name="ListData" type="hidden" type="text" class="form-control input-sm" placeholder="" value="@Model.ListData">
+                            <input id="ListData" name="ListData" type="hidden"  class="form-control input-sm" placeholder="" value="@Model.ListData">
                         </form>
                     </div>
 
@@ -295,6 +299,7 @@
                 var style = 'style="width:90px;"';
                 if (col < 2)
                     style = '';
+
                 return '<input  type="text" td_name="' + name + '" class="form-control input-sm" ' + style + ' value="' + data + '">';
             }
             var bindDataList = function(datas) {
@@ -314,6 +319,7 @@
                         { "data": "UnitPrice", "title": "UnitPrice", render: opColumns },
                         { "data": "Total", "title": "Total", render: opColumns }
                     ]
+
                 });
 
             };
@@ -357,6 +363,16 @@
                     model.Total = $(tr).find("input[td_name='Total']").val();
                     list.push(model);
                 });
+                evenTr.each(function (i, tr) {
+                    var model = {};
+                    model.Reference = $(tr).find("input[td_name='Reference']").val();
+                    model.Designation = $(tr).find("td[td_name='Designation']").val();
+                    model.Unit = $(tr).find("input[td_name='Unit']").val();
+                    model.Quantity = $(tr).find("input[td_name='Quantity']").val();
+                    model.UnitPrice = $(tr).find("input[td_name='UnitPrice']").val();
+                    model.Total = $(tr).find("input[td_name='Total']").val();
+                    list.push(model);
+                });
 
                 var subModel = {
                     InvoiceNumber: $('#form_search').find("input[name='InvoiceNumber']").val(),
@@ -389,8 +405,15 @@
                 }
             });
 
+            
+            var isListGo = "@ViewBag.ListGo"=="True";
+            if (isListGo) {
+                var dataListStr = $("#ListData").val();
+                dataListStr =dataListStr==""?"[]":dataListStr;
+                var jsonObj = JSON.parse(dataListStr);
+                bindDataList(jsonObj);
+            }
 
-            bindDataList($("#ListData").val());
 
         });
 

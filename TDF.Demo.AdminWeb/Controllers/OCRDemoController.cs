@@ -40,6 +40,7 @@ namespace TDF.Demo.AdminWeb.Controllers
 
         public ActionResult Add(Guid? Id)
         {
+            ViewBag.ListGo = Id != null;
             if (Id == null)
             {
                 OcrDataDto dto = new OcrDataDto();
@@ -47,6 +48,7 @@ namespace TDF.Demo.AdminWeb.Controllers
             }
             else
             {
+                
                 OcrDataService ocrDataService = new OcrDataService();
                 var model = ocrDataService.GetOcrDataById(Id.Value);
                 return View(model);
